@@ -7,19 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DevIM
+namespace DevIM.Test
 {
-    public partial class Logon : Form
+    public partial class TestRecvFile : Form
     {
-        public Logon()
+        public TestRecvFile()
         {
             InitializeComponent();
         }
-
-        private void btnUserLogin_Click(object sender, EventArgs e)
-        {
-            (new UserMainWindow()).ShowDialog();
-        }
-
     }
 }

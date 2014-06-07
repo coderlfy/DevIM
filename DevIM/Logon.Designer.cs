@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnUserLogin = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnUserLogin
+            // 
+            this.btnUserLogin.Location = new System.Drawing.Point(261, 23);
+            this.btnUserLogin.Name = "btnUserLogin";
+            this.btnUserLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnUserLogin.TabIndex = 0;
+            this.btnUserLogin.Text = "登录";
+            this.btnUserLogin.UseVisualStyleBackColor = true;
+            this.btnUserLogin.Click += new System.EventHandler(this.btnUserLogin_Click);
+            // 
+            // Logon
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(380, 111);
+            this.Controls.Add(this.btnUserLogin);
+            this.Name = "Logon";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnUserLogin;
     }
 }
 

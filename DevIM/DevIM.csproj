@@ -52,12 +52,27 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\TestRecvFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\TestRecvFile.Designer.cs">
+      <DependentUpon>TestRecvFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test\TestSendFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Test\TestSendFile.Designer.cs">
       <DependentUpon>TestSendFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserMainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserMainWindow.Designer.cs">
+      <DependentUpon>UserMainWindow.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Logon.resx">
+      <DependentUpon>Logon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -67,8 +82,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Test\TestRecvFile.resx">
+      <DependentUpon>TestRecvFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Test\TestSendFile.resx">
       <DependentUpon>TestSendFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMainWindow.resx">
+      <DependentUpon>UserMainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

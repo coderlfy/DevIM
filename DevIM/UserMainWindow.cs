@@ -9,17 +9,11 @@ using System.Windows.Forms;
 
 namespace DevIM
 {
-    public partial class Logon : Form
+    public partial class UserMainWindow : Form
     {
-        public Logon()
+        public UserMainWindow()
         {
             InitializeComponent();
         }
-
-        private void btnUserLogin_Click(object sender, EventArgs e)
-        {
-            (new UserMainWindow()).ShowDialog();
-        }
-
     }
 }

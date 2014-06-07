@@ -1,6 +1,6 @@
 ﻿namespace DevIM.Test
 {
-    partial class TestSendFile
+    partial class TestRecvFile
     {
         /// <summary>
         /// Required designer variable.
@@ -31,9 +31,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnSelectSendFile = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnCancelSend = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -58,17 +57,8 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
-            this.button1.Text = "开始发送";
+            this.button1.Text = "开始接收";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // btnSelectSendFile
-            // 
-            this.btnSelectSendFile.Location = new System.Drawing.Point(404, 21);
-            this.btnSelectSendFile.Name = "btnSelectSendFile";
-            this.btnSelectSendFile.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectSendFile.TabIndex = 3;
-            this.btnSelectSendFile.Text = "选择文件";
-            this.btnSelectSendFile.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -77,33 +67,32 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "没有文件发送";
+            this.label2.Text = "没有文件接收";
             // 
-            // btnCancelSend
+            // button2
             // 
-            this.btnCancelSend.Location = new System.Drawing.Point(404, 50);
-            this.btnCancelSend.Name = "btnCancelSend";
-            this.btnCancelSend.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelSend.TabIndex = 5;
-            this.btnCancelSend.Text = "取消发送";
-            this.btnCancelSend.UseVisualStyleBackColor = true;
+            this.button2.Location = new System.Drawing.Point(404, 51);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "拒绝接收";
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // TestSendFile
+            // TestRecvFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 92);
-            this.Controls.Add(this.btnCancelSend);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnSelectSendFile);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TestSendFile";
+            this.Name = "TestRecvFile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TestSendFile";
+            this.Text = "TestRecvFile";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,8 +103,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnSelectSendFile;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnCancelSend;
+        private System.Windows.Forms.Button button2;
     }
 }
