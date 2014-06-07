@@ -29,6 +29,7 @@ namespace IMServer
 
         private void socketErrorHandler(object sender, ErrorEventArgs e)
         {
+            
             ExtConsole.WriteWithColor(e.SocketException.ToString());
         }
     }

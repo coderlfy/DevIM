@@ -184,11 +184,12 @@ namespace IMServer.socket
                     hexbusinessdata += businessdata[i].ToString("X2"); //ToString("X2")将接收到的byte型数组解包为Unicode字符串
                     hexbusinessdata += " ";
                 }
-                string[] viewArr = new string[3];
-                viewArr[0] = DateTime.Now.ToString();
-                viewArr[1] = clientIp.ToString();
-                viewArr[2] = System.Text.Encoding.ASCII.GetString(businessdata);//hexbusinessdata;
-      
+                //string[] viewArr = new string[3];
+                //viewArr[0] = DateTime.Now.ToString();
+                //viewArr[1] = clientIp.ToString();
+                //viewArr[2] = System.Text.Encoding.ASCII.GetString(businessdata);//hexbusinessdata;
+
+                Console.WriteLine(hexbusinessdata);
                 //MainView.AsyncAppendContent(String.Format("[{0}]接受自终端{1}的信息----{2}\r\n\r\n", viewArr));
                 //工厂处理数据（处理过程中维护终端列表）
                 //CommandFactory resolvecmd = new CommandFactory(businessdata, viewArr[1], clientport.ToString());

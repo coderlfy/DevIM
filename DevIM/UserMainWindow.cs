@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevIM.Test;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,5 +16,11 @@ namespace DevIM
         {
             InitializeComponent();
         }
+
+        private void btnTestSend_Click(object sender, EventArgs e)
+        {
+            (new TestSendFile()).ShowDialog();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevIM.socket;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +29,11 @@ namespace DevIM.Test
 
         private void btnStartSend_Click(object sender, EventArgs e)
         {
+            TcpClient tcpclient = new TcpClient("192.168.159.104", 1005);
+            byte[] data = new byte[] { 0x32, 0x31, 0x30};
 
+            tcpclient.SendToEndDevice(data);
+            
         }
 
     }
