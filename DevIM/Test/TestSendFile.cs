@@ -15,5 +15,21 @@ namespace DevIM.Test
         {
             InitializeComponent();
         }
+
+        private void btnSelectSendFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelSend_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStartSend_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

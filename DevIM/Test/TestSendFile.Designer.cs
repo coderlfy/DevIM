@@ -30,7 +30,7 @@
         {
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStartSend = new System.Windows.Forms.Button();
             this.btnSelectSendFile = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancelSend = new System.Windows.Forms.Button();
@@ -52,14 +52,15 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "发送状态：";
             // 
-            // button1
+            // btnStartSend
             // 
-            this.button1.Location = new System.Drawing.Point(323, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "开始发送";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnStartSend.Location = new System.Drawing.Point(323, 51);
+            this.btnStartSend.Name = "btnStartSend";
+            this.btnStartSend.Size = new System.Drawing.Size(75, 23);
+            this.btnStartSend.TabIndex = 2;
+            this.btnStartSend.Text = "开始发送";
+            this.btnStartSend.UseVisualStyleBackColor = true;
+            this.btnStartSend.Click += new System.EventHandler(this.btnStartSend_Click);
             // 
             // btnSelectSendFile
             // 
@@ -69,6 +70,7 @@
             this.btnSelectSendFile.TabIndex = 3;
             this.btnSelectSendFile.Text = "选择文件";
             this.btnSelectSendFile.UseVisualStyleBackColor = true;
+            this.btnSelectSendFile.Click += new System.EventHandler(this.btnSelectSendFile_Click);
             // 
             // label2
             // 
@@ -87,6 +89,7 @@
             this.btnCancelSend.TabIndex = 5;
             this.btnCancelSend.Text = "取消发送";
             this.btnCancelSend.UseVisualStyleBackColor = true;
+            this.btnCancelSend.Click += new System.EventHandler(this.btnCancelSend_Click);
             // 
             // TestSendFile
             // 
@@ -96,7 +99,7 @@
             this.Controls.Add(this.btnCancelSend);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSelectSendFile);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnStartSend);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.MaximizeBox = false;
@@ -113,7 +116,7 @@
 
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStartSend;
         private System.Windows.Forms.Button btnSelectSendFile;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCancelSend;
