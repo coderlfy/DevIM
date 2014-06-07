@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnStartListen = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnStartListen
+            // 
+            this.btnStartListen.Location = new System.Drawing.Point(166, 46);
+            this.btnStartListen.Name = "btnStartListen";
+            this.btnStartListen.Size = new System.Drawing.Size(75, 23);
+            this.btnStartListen.TabIndex = 0;
+            this.btnStartListen.Text = "开始侦听";
+            this.btnStartListen.UseVisualStyleBackColor = true;
+            this.btnStartListen.Click += new System.EventHandler(this.btnStartListen_Click);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(399, 129);
+            this.Controls.Add(this.btnStartListen);
+            this.Name = "MainForm";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnStartListen;
     }
 }
 
