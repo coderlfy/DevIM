@@ -13,6 +13,7 @@ namespace DevIM
         [STAThread]
         static void Main()
         {
+            //zh
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Logon());
