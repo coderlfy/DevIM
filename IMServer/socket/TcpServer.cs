@@ -151,25 +151,27 @@ namespace IMServer.socket
         /// </summary>
         /// <param name="endpoint"></param>
         /// <param name="cacheLength"></param>
-        private void dispatcher(IPEndPoint endpoint, int cacheLength)
+        private void dispatcher(Socket client, int cacheLength)
         {
             #region
             byte[] temp = new byte[cacheLength];
             Buffer.BlockCopy(_recvDataBuffer, 0, temp, 0, cacheLength);
+            IPEndPoint endremotepoint = (System.Net.IPEndPoint)client.RemoteEndPoint;
 
-            TcpDispatcher tcpdispatcher = new TcpDispatcher();
+            TcpDispatcher tcpdispatcher = new TcpDispatcher(client);
             tcpdispatcher._UserData = new UserData
             {
                 _SourceData = temp.ToList<byte>(),
                 _FromClient = new business.ClientSource {
-                    IPAddress = endpoint.Address.ToString(),
-                    Port = endpoint.Port
+                    IPAddress = endremotepoint.Address.ToString(),
+                    Port = endremotepoint.Port
                 }
             };
             viewTempToConsole(tcpdispatcher);
             tcpdispatcher.Run();
             #endregion
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -204,24 +206,17 @@ namespace IMServer.socket
             try
             {
                 Socket client = (Socket)iar.AsyncState;
-                IPEndPoint endremotepoint = (System.Net.IPEndPoint)client.RemoteEndPoint;
+                
                 int recvcount = client.EndReceive(iar);
 
+                /*
                 if (recvcount <= 0)
                 {
                     client.Close();
                     return;
                 }
-
-                this.dispatcher(endremotepoint, recvcount);
-
-                //获取接收到的业务数据数组
-
-                //MainView.AsyncAppendContent(String.Format("[{0}]接受自终端{1}的信息----{2}\r\n\r\n", viewArr));
-                //工厂处理数据（处理过程中维护终端列表）
-                //CommandFactory resolvecmd = new CommandFactory(businessdata, viewArr[1], clientport.ToString());
-                //resolvecmd.SaveCommand();
-                //最终显示终端列表
+                */
+                this.dispatcher(client, recvcount);
             }
             catch (Exception e)
             {

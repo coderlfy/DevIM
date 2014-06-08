@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnStartSend = new System.Windows.Forms.Button();
             this.btnSelectSendFile = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbSendStatus = new System.Windows.Forms.Label();
             this.btnCancelSend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -72,14 +72,14 @@
             this.btnSelectSendFile.UseVisualStyleBackColor = true;
             this.btnSelectSendFile.Click += new System.EventHandler(this.btnSelectSendFile_Click);
             // 
-            // label2
+            // lbSendStatus
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(101, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "没有文件发送";
+            this.lbSendStatus.AutoSize = true;
+            this.lbSendStatus.Location = new System.Drawing.Point(101, 26);
+            this.lbSendStatus.Name = "lbSendStatus";
+            this.lbSendStatus.Size = new System.Drawing.Size(77, 12);
+            this.lbSendStatus.TabIndex = 4;
+            this.lbSendStatus.Text = "没有文件发送";
             // 
             // btnCancelSend
             // 
@@ -97,7 +97,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 92);
             this.Controls.Add(this.btnCancelSend);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbSendStatus);
             this.Controls.Add(this.btnSelectSendFile);
             this.Controls.Add(this.btnStartSend);
             this.Controls.Add(this.label1);
@@ -118,7 +118,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnStartSend;
         private System.Windows.Forms.Button btnSelectSendFile;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbSendStatus;
         private System.Windows.Forms.Button btnCancelSend;
     }
 }
