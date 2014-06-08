@@ -15,9 +15,19 @@ using System.Net.Sockets;
 using System.Collections;
 using System.Threading;
 
-namespace IMServer.socket
+namespace DevIM.socket
 {
+    class ErrorEventArgs : EventArgs
+    {
+        private Exception exception;
 
+        public Exception SocketException
+        {
+            get { return exception; }
+            set { exception = value; }
+        }
+        
+    }
     class TcpServer
     {
         /// <summary>
@@ -41,7 +51,6 @@ namespace IMServer.socket
         /// </summary>
         public delegate void ErrorHandler(object sender, ErrorEventArgs e);
         public event ErrorHandler OnError = null;
-        private Thread _thdReceive = null;
         /// <summary>
         /// 获取服务端IP列表
         /// </summary>
@@ -87,10 +96,6 @@ namespace IMServer.socket
                     SocketType.Stream, ProtocolType.Tcp);
                 _tcpServer.Bind(localEP);
                 _tcpServer.Listen(100);
-
-                _thdReceive = new Thread(new ThreadStart(receiveSocket));
-                _thdReceive.IsBackground = true;
-                _thdReceive.Start();
                 return true;
             }
             catch (Exception e)
@@ -103,7 +108,7 @@ namespace IMServer.socket
         /// <summary>
         /// 从终端接收信息接口
         /// </summary>
-        private void receiveSocket()
+        public void ReceiveSocket()
         {
             #region
             try
@@ -138,60 +143,12 @@ namespace IMServer.socket
             }
             catch (SocketException e)
             {
-                this.receiveSocket();
+                this.ReceiveSocket();
             }
             catch (Exception e)
             {
                 this.writeError(e);
             }
-            #endregion
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="endpoint"></param>
-        /// <param name="cacheLength"></param>
-        private void dispatcher(IPEndPoint endpoint, int cacheLength)
-        {
-            #region
-            byte[] temp = new byte[cacheLength];
-            Buffer.BlockCopy(_recvDataBuffer, 0, temp, 0, cacheLength);
-
-            TcpDispatcher tcpdispatcher = new TcpDispatcher();
-            tcpdispatcher._UserData = new UserData
-            {
-                _SourceData = temp.ToList<byte>(),
-                _FromClient = new business.ClientSource {
-                    IPAddress = endpoint.Address.ToString(),
-                    Port = endpoint.Port
-                }
-            };
-            viewTempToConsole(tcpdispatcher);
-            tcpdispatcher.Run();
-            #endregion
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tcpDispatcher"></param>
-        private void viewTempToConsole(TcpDispatcher tcpDispatcher)
-        {
-            #region
-            StringBuilder viewcontent = new StringBuilder();
-            
-            //构造显示数据
-            viewcontent.AppendLine(string.Format(
-                "数据来自客户端：{0}, 端口：{1}",
-                tcpDispatcher._UserData._FromClient.IPAddress,
-                tcpDispatcher._UserData._FromClient.Port
-                )); 
-
-            for (int i = 0; i < tcpDispatcher._UserData._SourceData.Count; i++)
-            {
-                byte temp = tcpDispatcher._UserData._SourceData[i];
-                viewcontent.Append(string.Format("0x{0} ",temp.ToString("X2"))); 
-            }
-            Console.WriteLine(viewcontent);
             #endregion
         }
         /// <summary>
@@ -205,6 +162,11 @@ namespace IMServer.socket
             {
                 Socket client = (Socket)iar.AsyncState;
                 IPEndPoint endremotepoint = (System.Net.IPEndPoint)client.RemoteEndPoint;
+                IPAddress clientIp = endremotepoint.Address;
+                int clientport = endremotepoint.Port;
+
+                byte[] businessdata;
+                string hexbusinessdata = "";
                 int recvcount = client.EndReceive(iar);
 
                 if (recvcount <= 0)
@@ -212,11 +174,22 @@ namespace IMServer.socket
                     client.Close();
                     return;
                 }
-
-                this.dispatcher(endremotepoint, recvcount);
-
                 //获取接收到的业务数据数组
+                businessdata = new byte[recvcount];
+                Buffer.BlockCopy(_recvDataBuffer, 0, businessdata, 0, recvcount);
 
+                //构造显示数据
+                for (int i = 0; i < recvcount; i++)
+                {
+                    hexbusinessdata += businessdata[i].ToString("X2"); //ToString("X2")将接收到的byte型数组解包为Unicode字符串
+                    hexbusinessdata += " ";
+                }
+                string[] viewArr = new string[3];
+                viewArr[0] = DateTime.Now.ToString();
+                viewArr[1] = clientIp.ToString();
+                viewArr[2] = System.Text.Encoding.ASCII.GetString(businessdata);//hexbusinessdata;
+
+                Console.WriteLine(hexbusinessdata);
                 //MainView.AsyncAppendContent(String.Format("[{0}]接受自终端{1}的信息----{2}\r\n\r\n", viewArr));
                 //工厂处理数据（处理过程中维护终端列表）
                 //CommandFactory resolvecmd = new CommandFactory(businessdata, viewArr[1], clientport.ToString());

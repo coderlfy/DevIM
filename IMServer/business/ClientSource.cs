@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IMServer.business
 {
-    class UserClient
+    class ClientSource
     {
         private string fullname;
 
