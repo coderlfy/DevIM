@@ -31,7 +31,7 @@ namespace DevIM.Test
         {
             MethodInvoker gd = new MethodInvoker(() =>
             {
-                TcpClient tcpclient = new TcpClient("192.168.159.104", 1005);
+                TcpClient tcpclient = new TcpClient("192.168.159.103", 1005);
                 tcpclient.OnStartingDownload += new EventHandler(StartingDownload);
                 byte[] data = new byte[] { 0x03, 0x10, 0x13 };
 

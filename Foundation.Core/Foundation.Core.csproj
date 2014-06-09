@@ -61,6 +61,7 @@
     <Compile Include="txtlog\FastDirectoryEnumerator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="txtlog\LogInterface.cs" />
     <Compile Include="txtlog\LogBusiness.cs">
       <SubType>Code</SubType>
     </Compile>

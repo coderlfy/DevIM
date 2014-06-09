@@ -1,4 +1,5 @@
 ﻿using Fundation.Core;
+using IMServer.custom;
 using IMServer.socket;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,12 @@ namespace IMServer
         {
             
             ExtConsole.WriteWithColor(e.SocketException.ToString());
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            CustomConfig.GetSystemParameters();
+            LogInterface.Listen(CustomConfig.LogDirectoryName.ToString());
         }
     }
 }

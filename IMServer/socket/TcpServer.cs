@@ -1,7 +1,7 @@
 ﻿/****************************************
 ###创建人：bhlfy
 ###创建时间：2011-09-14
-###公司：博华科技
+###公司：ICat科技
 ###最后修改时间：2011-09-14
 ###最后修改人：bhlfy
 ###修改摘要：
@@ -136,7 +136,7 @@ namespace IMServer.socket
                     _recvDataBuffer.Length, SocketFlags.None,
                             new AsyncCallback(receiveData), client);
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
                 this.receiveSocket();
             }

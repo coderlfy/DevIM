@@ -1,4 +1,6 @@
-﻿using DevIM.Test;
+﻿using DevIM.custom;
+using DevIM.Test;
+using Fundation.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +22,13 @@ namespace DevIM
         private void btnTestSend_Click(object sender, EventArgs e)
         {
             (new TestSendFile()).ShowDialog();
+        }
+
+        private void UserMainWindow_Load(object sender, EventArgs e)
+        {
+            CustomConfig.GetSystemParameters();
+            LogInterface.Listen(CustomConfig.LogDirectoryName.ToString());
+
         }
 
     }

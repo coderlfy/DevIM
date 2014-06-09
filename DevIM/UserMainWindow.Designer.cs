@@ -51,6 +51,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserMainWindow";
+            this.Load += new System.EventHandler(this.UserMainWindow_Load);
             this.ResumeLayout(false);
 
         }
