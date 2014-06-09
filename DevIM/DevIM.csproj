@@ -112,9 +112,9 @@
     <Content Include="appclient.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Foundation.Core\Foundation.Core.csproj">
+    <ProjectReference Include="..\Foundation.Core\Fundation.Core.csproj">
       <Project>{398b7fee-94cd-4f66-a5b4-180f8e443c83}</Project>
-      <Name>Foundation.Core</Name>
+      <Name>Fundation.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

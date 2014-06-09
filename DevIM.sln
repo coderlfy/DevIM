@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevIM", "DevIM\DevIM.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMServer", "IMServer\IMServer.csproj", "{5A7CA480-2661-4F7E-9B94-3DA8EC7C7303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.Core", "Foundation.Core\Foundation.Core.csproj", "{398B7FEE-94CD-4F66-A5B4-180F8E443C83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundation.Core", "Foundation.Core\Fundation.Core.csproj", "{398B7FEE-94CD-4F66-A5B4-180F8E443C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
