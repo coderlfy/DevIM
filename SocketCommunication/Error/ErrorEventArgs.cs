@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IMServer.socket
+namespace SocketCommunication.Error
 {
-    class ErrorEventArgs : EventArgs
+    public class ErrorEventArgs : EventArgs
     {
         private Exception exception;
 

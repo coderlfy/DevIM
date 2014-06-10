@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IMServer.business
+namespace SocketCommunication.Cache
 {
-    class ClientSource
+    class Customer
     {
         private string fullname;
 

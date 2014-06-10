@@ -14,18 +14,20 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.Threading;
+using SocketCommunication.Error;
+using SocketCommunication.Cache;
 
-namespace IMServer.socket
+namespace SocketCommunication.TcpSocket
 {
 
-    class TcpServer
+    public class TcpServer
     {
         /// <summary>
         /// 服务器端的监听器
         /// </summary>
         private Socket _tcpServer = null;
         /// <summary>
-        /// 保存下发指令（字节数组）
+        /// 保存接收到的数据（字节数组）
         /// </summary>
         private byte[] _recvDataBuffer = new byte[2048];
         /// <summary>
@@ -39,8 +41,8 @@ namespace IMServer.socket
         /// <summary>
         /// 
         /// </summary>
-        public delegate void ErrorHandler(object sender, ErrorEventArgs e);
-        public event ErrorHandler OnError = null;
+        //public delegate void ErrorHandler(object sender, ErrorEventArgs e);
+        public event EventHandler<ErrorEventArgs> OnError = null;
         private Thread _thdReceive = null;
         /// <summary>
         /// 获取服务端IP列表
@@ -159,10 +161,11 @@ namespace IMServer.socket
             IPEndPoint endremotepoint = (System.Net.IPEndPoint)client.RemoteEndPoint;
 
             TcpDispatcher tcpdispatcher = new TcpDispatcher(client);
-            tcpdispatcher._UserData = new UserData
+            tcpdispatcher._UserData = new CustomerByteData
             {
                 _SourceData = temp.ToList<byte>(),
-                _FromClient = new business.ClientSource {
+                _FromClient = new Customer
+                {
                     IPAddress = endremotepoint.Address.ToString(),
                     Port = endremotepoint.Port
                 }
@@ -206,16 +209,7 @@ namespace IMServer.socket
             try
             {
                 Socket client = (Socket)iar.AsyncState;
-                
                 int recvcount = client.EndReceive(iar);
-
-                /*
-                if (recvcount <= 0)
-                {
-                    client.Close();
-                    return;
-                }
-                */
                 this.dispatcher(client, recvcount);
             }
             catch (Exception e)
@@ -224,25 +218,5 @@ namespace IMServer.socket
             }
             #endregion
         }
-        /// <summary>
-        /// 插入分站编号列表
-        /// </summary>
-        /// <param name="stationNO"></param>
-        /*
-        public static void InsertClientList(string stationNO)
-        {
-            #region
-            lock (InsertClientLock)
-            {
-                if (_clientList.Contains(stationNO))
-                {
-                    _clientList[stationNO] = DateTime.Now;
-                    return;
-                }
-                _clientList.Add(stationNO, DateTime.Now);
-            }
-            #endregion
-        }
-         * */
     }
 }

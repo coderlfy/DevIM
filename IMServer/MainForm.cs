@@ -1,6 +1,7 @@
 ﻿using Fundation.Core;
 using IMServer.custom;
-using IMServer.socket;
+using SocketCommunication.Error;
+using SocketCommunication.TcpSocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace IMServer
         {
             TcpServer tcpserver = new TcpServer();
 
-            tcpserver.OnError += new TcpServer.ErrorHandler(socketErrorHandler);
+            tcpserver.OnError += new EventHandler<ErrorEventArgs>(socketErrorHandler);
 
             tcpserver.StartListen(1005);
         }
@@ -38,6 +39,7 @@ namespace IMServer
         {
             CustomConfig.GetSystemParameters();
             LogInterface.Listen(CustomConfig.LogDirectoryName.ToString());
+            Console.Write(sizeof(int));
         }
     }
 }

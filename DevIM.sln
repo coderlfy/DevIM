@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMServer", "IMServer\IMServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundation.Core", "Foundation.Core\Fundation.Core.csproj", "{398B7FEE-94CD-4F66-A5B4-180F8E443C83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketCommunication", "SocketCommunication\SocketCommunication.csproj", "{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{398B7FEE-94CD-4F66-A5B4-180F8E443C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{398B7FEE-94CD-4F66-A5B4-180F8E443C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{398B7FEE-94CD-4F66-A5B4-180F8E443C83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

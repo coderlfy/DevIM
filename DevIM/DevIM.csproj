@@ -56,8 +56,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="socket\TcpClient.cs" />
-    <Compile Include="socket\TcpServer.cs" />
     <Compile Include="Test\TestRecvFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +113,10 @@
     <ProjectReference Include="..\Foundation.Core\Fundation.Core.csproj">
       <Project>{398b7fee-94cd-4f66-a5b4-180f8e443c83}</Project>
       <Name>Fundation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SocketCommunication\SocketCommunication.csproj">
+      <Project>{89b53963-f4d0-4104-8ff2-34d4a1e4b4dc}</Project>
+      <Name>SocketCommunication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

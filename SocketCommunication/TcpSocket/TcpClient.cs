@@ -5,9 +5,9 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-namespace IMServer.socket
+namespace SocketCommunication.TcpSocket
 {
-    class TcpClient
+    public class TcpClient
     {
         private IPAddress destIpAddress = null;
 

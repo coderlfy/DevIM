@@ -1,4 +1,5 @@
-﻿using DevIM.socket;
+﻿
+using SocketCommunication.TcpSocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

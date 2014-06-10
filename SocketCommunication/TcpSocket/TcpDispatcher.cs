@@ -1,47 +1,20 @@
-﻿using IMServer.business;
+﻿
+using SocketCommunication.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
-namespace IMServer.socket
+namespace SocketCommunication.TcpSocket
 {
-    class UserData
-    {
-        private ClientSource source;
 
-        public ClientSource _FromClient
-        {
-            get { return source; }
-            set { source = value; }
-        }
-
-        private List<byte> sourceData;
-
-        public List<byte> _SourceData
-        {
-            get { return sourceData; }
-            set { sourceData = value; }
-        }
-        
-        
-        private List<byte[]> dispatcherData;
-
-        public List<byte[]> _DispatcherData
-        {
-            get { return dispatcherData; }
-            set { dispatcherData = value; }
-        }
-
-
-    }
     class TcpDispatcher
     {
-        private UserData userData;
         private Socket _clientSocket = null;
+        private CustomerByteData userData;
 
-        public UserData _UserData
+        public CustomerByteData _UserData
         {
             get { return userData; }
             set { userData = value; }
