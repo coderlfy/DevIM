@@ -10,6 +10,17 @@ namespace SocketCommunication.PipeData
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="orginaldata"></param>
+        /// <returns></returns>
+        public static byte[] CreatePipeCommand(
+            ISocketOrginalData orginaldata)
+        {
+            return orginaldata.GetCommand();
+            //添加构建头尾命令字等
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="pipeData"></param>
         /// <returns></returns>
         public static ISocketOrginalData GetTProtocol(

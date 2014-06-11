@@ -10,5 +10,7 @@ namespace SocketCommunication.PipeData
         List<byte> _AfterDecodeData { get; set; }
 
         void Analysis();
+
+        byte[] GetCommand();
     }
 }

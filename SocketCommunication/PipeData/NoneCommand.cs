@@ -23,5 +23,11 @@ namespace SocketCommunication.PipeData
         {
             throw new NotImplementedException();
         }
+
+
+        public byte[] GetCommand()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
