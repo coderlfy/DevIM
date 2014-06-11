@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SocketCommunication.Cache
 {
-    class Customer
+    public class Customer
     {
         private string fullname;
 

@@ -41,6 +41,11 @@
   <ItemGroup>
     <Compile Include="Cache\CustomerByteData.cs" />
     <Compile Include="Cache\Customer.cs" />
+    <Compile Include="PipeData\ISocketOrginalData.cs" />
+    <Compile Include="PipeData\NoneCommand.cs" />
+    <Compile Include="PipeData\ProtocolRule.cs" />
+    <Compile Include="PipeData\RecvSendFileAck.cs" />
+    <Compile Include="PipeData\TProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cache\DynamicBufferManager.cs" />
     <Compile Include="Error\ErrorEventArgs.cs" />
@@ -49,8 +54,6 @@
     <Compile Include="TcpSocket\TcpServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RecvCommand\" />
-    <Folder Include="SendCommand\" />
     <Folder Include="Startup\" />
     <Folder Include="UdpSocket\" />
   </ItemGroup>

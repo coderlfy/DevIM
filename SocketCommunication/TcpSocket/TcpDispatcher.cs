@@ -1,5 +1,6 @@
 ﻿
 using SocketCommunication.Cache;
+using SocketCommunication.PipeData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ using System.Text;
 namespace SocketCommunication.TcpSocket
 {
 
-    class TcpDispatcher
+    public class TcpDispatcher
     {
         private Socket _clientSocket = null;
+        
         private CustomerByteData userData;
 
         public CustomerByteData _UserData
@@ -29,23 +31,25 @@ namespace SocketCommunication.TcpSocket
         /// </summary>
         public void Run()
         {
+            #region
+            ProtocolRule.GetTProtocol(userData._SourceData).Analysis();
+
+            /*
             if (userData._SourceData[1] == 0x10)
             {
                 this._clientSocket.Send(new byte[] { 0x03, 0x11, 0x13 });
             }
-        }
-        /// <summary>
-        /// 验证数据格式
-        /// </summary>
-        /// <returns></returns>
-        private bool verify()
-        {
-            return true;
+             * */
+            #endregion
         }
 
+        /// <summary>
+        /// 有一帧内有多条命令
+        /// </summary>
         private void split()
-        { 
-            
+        {
+            #region
+            #endregion
         }
     }
 }
