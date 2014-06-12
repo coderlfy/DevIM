@@ -5,27 +5,17 @@ using System.Text;
 
 namespace SocketCommunication.PipeData
 {
-    class NoneCommand: ISocketOrginalData
+    class NoneCommand: ISocketCommand
     {
-        public List<byte> _AfterDecodeData
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
 
-        public void Analysis()
+
+
+        public override void Analysis()
         {
             throw new NotImplementedException();
         }
 
-
-        public byte[] GetCommand()
+        public override List<byte> GetCommand()
         {
             throw new NotImplementedException();
         }

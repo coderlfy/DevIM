@@ -32,7 +32,9 @@ namespace SocketCommunication.TcpSocket
         public void Run()
         {
             #region
-            ProtocolRule.GetTProtocol(userData._SourceData).Analysis();
+            ISocketCommand socketcommand = ProtocolRule.GetTProtocol(userData._SourceData);
+            socketcommand._SourceClient = this._clientSocket;
+            socketcommand.Analysis();
 
             /*
             if (userData._SourceData[1] == 0x10)

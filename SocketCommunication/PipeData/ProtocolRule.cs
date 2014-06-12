@@ -5,35 +5,70 @@ using System.Text;
 
 namespace SocketCommunication.PipeData
 {
-    class ProtocolRule
+    public class ProtocolRule
     {
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="orginaldata"></param>
         /// <returns></returns>
         public static byte[] CreatePipeCommand(
-            ISocketOrginalData orginaldata)
+            ISocketCommand orginaldata)
         {
-            return orginaldata.GetCommand();
+            #region
+            List<byte> businesscommand = orginaldata.GetCommand();
+            businesscommand.Insert(0, (byte)TProtocol.Head);
+            businesscommand.Add((byte)TProtocol.Tail);
+            return businesscommand.ToArray<byte>();
             //添加构建头尾命令字等
+            #endregion
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pipeData"></param>
         /// <returns></returns>
-        public static ISocketOrginalData GetTProtocol(
+        public static ISocketCommand GetTProtocol(
             List<byte> pipeData)
         {
             #region
-            ISocketOrginalData orgdata = null;
+
+            if (!verify(pipeData))
+                return null;
+            else
+                return GetTProtocol((TProtocol)pipeData[1]);
+            #endregion
+        }
+
+
+        public static ISocketCommand GetTProtocol(
+            TProtocol tprotocol)
+        {
+            #region
+            ISocketCommand orgdata = null;
+            switch (tprotocol)
+            { 
+                case TProtocol.SendFileAck:
+                    orgdata = new SendFileAck();
+                    break;
+                case TProtocol.SendFileSyn:
+                    orgdata = new SendFileSyn();
+                    break;
+                default:
+                    orgdata = new NoneCommand();
+                    break;
+            }
+            return orgdata;
+                    /*
+            ISocketCommand orgdata = null;
             if (verify(pipeData))
-                orgdata = new RecvSendFileAck();
+                orgdata = new SendFileAck();
             else
                 orgdata = new NoneCommand();
             orgdata._AfterDecodeData = decode(pipeData);
             return orgdata;
+                     * */
             #endregion
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using SocketCommunication.PipeData;
 
 namespace SocketCommunication.TcpSocket
 {
@@ -82,7 +83,7 @@ namespace SocketCommunication.TcpSocket
         }
         public void Dispatcher()
         {
-            if (_fullrecvdata[1] == 0x04)
+            if (_fullrecvdata[1] == (byte)TProtocol.SendFileAck)
             {
                 if (OnStartingDownload != null)
                     OnStartingDownload(this, null);
