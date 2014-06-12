@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Cache\CustomerByteData.cs" />
     <Compile Include="Cache\Customer.cs" />
+    <Compile Include="PipeData\CommandFactory.cs" />
     <Compile Include="PipeData\ISocketCommand.cs" />
     <Compile Include="PipeData\NoneCommand.cs" />
     <Compile Include="PipeData\ProtocolRule.cs" />

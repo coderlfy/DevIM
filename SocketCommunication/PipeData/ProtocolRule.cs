@@ -37,40 +37,12 @@ namespace SocketCommunication.PipeData
             if (!verify(pipeData))
                 return null;
             else
-                return GetTProtocol((TProtocol)pipeData[1]);
+                return CommandFactory.
+                    CreateSocketCommandObject((TProtocol)pipeData[1]);
             #endregion
         }
 
 
-        public static ISocketCommand GetTProtocol(
-            TProtocol tprotocol)
-        {
-            #region
-            ISocketCommand orgdata = null;
-            switch (tprotocol)
-            { 
-                case TProtocol.SendFileAck:
-                    orgdata = new SendFileAck();
-                    break;
-                case TProtocol.SendFileSyn:
-                    orgdata = new SendFileSyn();
-                    break;
-                default:
-                    orgdata = new NoneCommand();
-                    break;
-            }
-            return orgdata;
-                    /*
-            ISocketCommand orgdata = null;
-            if (verify(pipeData))
-                orgdata = new SendFileAck();
-            else
-                orgdata = new NoneCommand();
-            orgdata._AfterDecodeData = decode(pipeData);
-            return orgdata;
-                     * */
-            #endregion
-        }
 
         /// <summary>
         /// 验证数据格式

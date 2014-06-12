@@ -40,7 +40,9 @@ namespace DevIM.Test
 
                 tcpclient.Connect();
 
-                command = ProtocolRule.GetTProtocol(TProtocol.SendFileSyn);
+                command = CommandFactory.CreateSocketCommandObject(
+                    TProtocol.SendFileSyn);
+
                 tcpclient.SendToEndDevice(command.GetProtocolCommand());
 
                 tcpclient.receive();
