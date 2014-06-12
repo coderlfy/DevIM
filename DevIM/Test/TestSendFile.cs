@@ -1,4 +1,5 @@
 ﻿
+using SocketCommunication.PipeData;
 using SocketCommunication.TcpSocket;
 using System;
 using System.Collections.Generic;
@@ -32,13 +33,16 @@ namespace DevIM.Test
         {
             MethodInvoker gd = new MethodInvoker(() =>
             {
-                TcpClient tcpclient = new TcpClient("192.168.159.103", 1005);
+                TcpClient tcpclient = new TcpClient("192.168.159.11", 1005);
                 tcpclient.OnStartingDownload += new EventHandler(StartingDownload);
-                byte[] data = new byte[] { 0x03, 0x10, 0x13 };
+
+                ISocketCommand command = null;
 
                 tcpclient.Connect();
 
-                tcpclient.SendToEndDevice(data);
+                command = ProtocolRule.GetTProtocol(TProtocol.SendFileSyn);
+                tcpclient.SendToEndDevice(command.GetProtocolCommand());
+
                 tcpclient.receive();
                 tcpclient.Dispatcher();
                 tcpclient.Close();
