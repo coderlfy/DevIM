@@ -160,7 +160,7 @@ namespace SocketCommunication.TcpSocket
             Buffer.BlockCopy(_recvDataBuffer, 0, temp, 0, cacheLength);
             IPEndPoint endremotepoint = (System.Net.IPEndPoint)client.RemoteEndPoint;
 
-            TcpDispatcher tcpdispatcher = new TcpDispatcher(client);
+            TcpServerDispatcher tcpdispatcher = new TcpServerDispatcher(client);
             tcpdispatcher._UserData = new CustomerByteData
             {
                 _SourceData = temp.ToList<byte>(),
@@ -179,7 +179,7 @@ namespace SocketCommunication.TcpSocket
         /// 
         /// </summary>
         /// <param name="tcpDispatcher"></param>
-        private void viewTempToConsole(TcpDispatcher tcpDispatcher)
+        private void viewTempToConsole(TcpServerDispatcher tcpDispatcher)
         {
             #region
             StringBuilder viewcontent = new StringBuilder();

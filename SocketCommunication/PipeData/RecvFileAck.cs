@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SocketCommunication.PipeData
 {
-    class SendFileAck : ISocketCommand
+    public class RecvFileAck : IClientCommand
     {
 
 

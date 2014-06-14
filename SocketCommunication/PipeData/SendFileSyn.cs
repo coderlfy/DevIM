@@ -5,16 +5,20 @@ using System.Text;
 
 namespace SocketCommunication.PipeData
 {
-    class SendFileSyn: ISocketCommand
+    public class SendFileSyn: IServerCommand
     {
 
 
+        public EventHandler OnStartingDownload = null;
 
         public override void Analysis()
         {
-            base._SourceClient.Send(
-                (CommandFactory.CreateSocketCommandObject(TProtocol.SendFileAck))
+            base._SourceClient.Send((new RecvFileAck())
                 .GetProtocolCommand());
+
+            if (OnStartingDownload != null)
+                OnStartingDownload(this, null);
+
         }
 
         public override List<byte> GetCommand()

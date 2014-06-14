@@ -8,13 +8,7 @@ namespace SocketCommunication.PipeData
 {
     public abstract class ISocketCommand
     {
-        private Socket _sourceClient;
 
-        public Socket _SourceClient
-        {
-            get { return _sourceClient; }
-            set { _sourceClient = value; }
-        }
 
         private List<byte> _afterDecodeData;
 

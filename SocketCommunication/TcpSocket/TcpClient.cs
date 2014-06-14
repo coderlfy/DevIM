@@ -20,7 +20,6 @@ namespace SocketCommunication.TcpSocket
 
         private static List<byte> _fullrecvdata = null;
 
-        public EventHandler OnStartingDownload = null;
         public TcpClient(string ipAddr, int port)
         {
             destIpAddress = IPAddress.Parse(ipAddr);
@@ -83,11 +82,8 @@ namespace SocketCommunication.TcpSocket
         }
         public void Dispatcher()
         {
-            if (_fullrecvdata[1] == (byte)TProtocol.SendFileAck)
-            {
-                if (OnStartingDownload != null)
-                    OnStartingDownload(this, null);
-            }
+            TcpClientDispatcher tcpdispatcher = new TcpClientDispatcher();
+            tcpdispatcher.Run();
         }
 
         public void Close()

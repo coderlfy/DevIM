@@ -42,22 +42,31 @@
     <Compile Include="Cache\CustomerByteData.cs" />
     <Compile Include="Cache\Customer.cs" />
     <Compile Include="PipeData\CommandFactory.cs" />
+    <Compile Include="PipeData\IClientCommand.cs" />
+    <Compile Include="PipeData\IServerCommand.cs" />
     <Compile Include="PipeData\ISocketCommand.cs" />
     <Compile Include="PipeData\NoneCommand.cs" />
     <Compile Include="PipeData\ProtocolRule.cs" />
-    <Compile Include="PipeData\SendFileAck.cs" />
+    <Compile Include="PipeData\RecvFileAck.cs" />
     <Compile Include="PipeData\SendFileSyn.cs" />
     <Compile Include="PipeData\TProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cache\DynamicBufferManager.cs" />
     <Compile Include="Error\ErrorEventArgs.cs" />
+    <Compile Include="TcpSocket\TcpClientDispatcher.cs" />
+    <Compile Include="TcpSocket\TcpDispatcher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TcpSocket\TcpServerDispatcher.cs" />
     <Compile Include="TcpSocket\TcpClient.cs" />
-    <Compile Include="TcpSocket\TcpDispatcher.cs" />
     <Compile Include="TcpSocket\TcpServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Startup\" />
     <Folder Include="UdpSocket\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

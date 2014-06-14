@@ -34,14 +34,11 @@ namespace DevIM.Test
             MethodInvoker gd = new MethodInvoker(() =>
             {
                 TcpClient tcpclient = new TcpClient("192.168.159.11", 1005);
-                tcpclient.OnStartingDownload += new EventHandler(StartingDownload);
 
-                ISocketCommand command = null;
+                SendFileSyn command = new SendFileSyn();
+                command.OnStartingDownload += new EventHandler(StartingDownload);
 
                 tcpclient.Connect();
-
-                command = CommandFactory.CreateSocketCommandObject(
-                    TProtocol.SendFileSyn);
 
                 tcpclient.SendToEndDevice(command.GetProtocolCommand());
 

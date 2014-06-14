@@ -29,7 +29,7 @@ namespace SocketCommunication.PipeData
         /// </summary>
         /// <param name="pipeData"></param>
         /// <returns></returns>
-        public static ISocketCommand GetTProtocol(
+        public static IServerCommand GetServerCommand(
             List<byte> pipeData)
         {
             #region
@@ -40,6 +40,12 @@ namespace SocketCommunication.PipeData
                 return CommandFactory.
                     CreateSocketCommandObject((TProtocol)pipeData[1]);
             #endregion
+        }
+
+        public static IClientCommand GetClientCommand(
+            List<byte> pipeData)
+        {
+            return new RecvFileAck();
         }
 
 

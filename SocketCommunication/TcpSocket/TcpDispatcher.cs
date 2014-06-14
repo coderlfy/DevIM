@@ -10,45 +10,19 @@ using System.Text;
 namespace SocketCommunication.TcpSocket
 {
 
-    public class TcpDispatcher
+    public abstract class TcpDispatcher
     {
-        private Socket _clientSocket = null;
         
-        private CustomerByteData userData;
-
-        public CustomerByteData _UserData
-        {
-            get { return userData; }
-            set { userData = value; }
-        }
         
-        public TcpDispatcher(Socket clientSocket)
-        {
-            this._clientSocket = clientSocket;
-        }
         /// <summary>
         /// 公开接口进行批处理
         /// </summary>
-        public void Run()
-        {
-            #region
-            ISocketCommand socketcommand = ProtocolRule.GetTProtocol(userData._SourceData);
-            socketcommand._SourceClient = this._clientSocket;
-            socketcommand.Analysis();
-
-            /*
-            if (userData._SourceData[1] == 0x10)
-            {
-                this._clientSocket.Send(new byte[] { 0x03, 0x11, 0x13 });
-            }
-             * */
-            #endregion
-        }
+        public abstract void Run();
 
         /// <summary>
         /// 有一帧内有多条命令
         /// </summary>
-        private void split()
+        protected void split()
         {
             #region
             #endregion

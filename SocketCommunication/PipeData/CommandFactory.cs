@@ -7,22 +7,20 @@ namespace SocketCommunication.PipeData
 {
     public class CommandFactory
     {
-        public static ISocketCommand CreateSocketCommandObject(
+        public static IServerCommand CreateSocketCommandObject(
             TProtocol tprotocol)
         {
             #region
-            ISocketCommand orgdata = null;
+            IServerCommand orgdata = null;
             switch (tprotocol)
             { 
-                case TProtocol.SendFileAck:
-                    orgdata = new SendFileAck();
-                    break;
+                //case TProtocol.SendFileAck:
+                //    orgdata = new SendFileAck();
+                //    break;
                 case TProtocol.SendFileSyn:
                     orgdata = new SendFileSyn();
                     break;
-                default:
-                    orgdata = new NoneCommand();
-                    break;
+                
             }
             return orgdata;
                     /*
