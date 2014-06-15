@@ -39,13 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityFriendship.cs" />
-    <Compile Include="EntityGroup.cs" />
-    <Compile Include="EntityTUser.cs" />
-    <Compile Include="FriendshipData.cs" />
-    <Compile Include="GroupData.cs" />
+    <Compile Include="entity\EntityFriendship.cs" />
+    <Compile Include="entity\EntityGroup.cs" />
+    <Compile Include="entity\EntityTUser.cs" />
+    <Compile Include="data\FriendshipData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="data\GroupData.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TUserData.cs" />
+    <Compile Include="data\TUserData.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Foundation.Core\Fundation.Core.csproj">

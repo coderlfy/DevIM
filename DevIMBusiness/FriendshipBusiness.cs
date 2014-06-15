@@ -1,7 +1,7 @@
 /****************************************
 ***创建人：bhlfy
-***创建时间：2014-06-15 11:28:46
-***公司：山西iCat Studio有限公司
+***创建时间：2014-06-15 14:47:37
+***公司：山西博华科技有限公司
 ***修改人：
 ***修改时间：
 ***文件描述：。
@@ -21,8 +21,8 @@ namespace DevIMBusiness
         #region Create by iCat Assist Tools
         /****************************************
         ***生成器版本：V2.0.0.20540
-        ***生成时间：2014-06-15 11:28:46
-        ***公司：山西iCat Studio有限公司
+        ***生成时间：2014-06-15 14:47:37
+        ***公司：山西博华科技有限公司
         ***友情提示：以下代码为生成器自动生成，可做参照修改之用；
         ***         如需有其他业务要求，可在region外添加新方法；
         ***         如发现任何编译和运行时错误，请联系QQ：330669393。
@@ -69,6 +69,7 @@ namespace DevIMBusiness
             friendshipdata.Assign(dr, FriendshipData.fid, friendship.fid);
             friendshipdata.Assign(dr, FriendshipData.meId, friendship.meId);
             friendshipdata.Assign(dr, FriendshipData.friendId, friendship.friendId);
+            friendshipdata.Assign(dr, FriendshipData.gid, friendship.gid);
             friendshipdata.Assign(dr, FriendshipData.writeTime, friendship.writeTime);
             friendshipdata.Tables[0].Rows.Add(dr);
             #endregion
@@ -88,6 +89,7 @@ namespace DevIMBusiness
             friendshipdata.Assign(dr, FriendshipData.fid, friendship.fid);
             friendshipdata.Assign(dr, FriendshipData.meId, friendship.meId);
             friendshipdata.Assign(dr, FriendshipData.friendId, friendship.friendId);
+            friendshipdata.Assign(dr, FriendshipData.gid, friendship.gid);
             friendshipdata.Assign(dr, FriendshipData.writeTime, friendship.writeTime);
             #endregion
         }
@@ -158,6 +160,8 @@ namespace DevIMBusiness
                 EnumCondition.Equal, friendship.meId);
             querybusinessparams.Add(FriendshipData.friendId, EnumSqlType.sqlint, 
                 EnumCondition.Equal, friendship.friendId);
+            querybusinessparams.Add(FriendshipData.gid, EnumSqlType.sqlint, 
+                EnumCondition.Equal, friendship.gid);
             querybusinessparams.Add(FriendshipData.writeTime, EnumSqlType.datetime, 
                 EnumCondition.Equal, friendship.writeTime);
             FriendshipData friendshipdata = new FriendshipData();

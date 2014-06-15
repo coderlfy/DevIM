@@ -2,8 +2,8 @@
 /****************************************
 ***生成器版本：V2.0.0.20540
 ***创建人：bhlfy
-***生成时间：2014-06-15 11:28:53
-***公司：山西iCat Studio有限公司
+***生成时间：2014-06-15 14:47:40
+***公司：山西博华科技有限公司
 ***友情提示：本文件为生成器自动生成，切勿手动更改
 ***         如发现任何编译和运行时的错误，请联系QQ：330669393。
 *****************************************/
@@ -29,6 +29,10 @@ namespace DevIMDataLibrary
         /// </summary>
         public const string friendId = "friendId";
         /// <summary>
+        /// 组序号。
+        /// </summary>
+        public const string gid = "gid";
+        /// <summary>
         /// 维护时间。
         /// </summary>
         public const string writeTime = "writeTime";
@@ -44,6 +48,7 @@ namespace DevIMDataLibrary
             dt.Columns.Add(fid, typeof(System.Int32));
             dt.Columns.Add(meId, typeof(System.Int32));
             dt.Columns.Add(friendId, typeof(System.Int32));
+            dt.Columns.Add(gid, typeof(System.Int32));
             dt.Columns.Add(writeTime, typeof(System.DateTime));
             dt.PrimaryKey = new DataColumn[1] { dt.Columns[fid] };
             dt.TableName = Friendship;
