@@ -80,10 +80,10 @@ namespace SocketCommunication.TcpSocket
 
             #endregion
         }
-        public void Dispatcher()
+        public void Dispatcher(IClientCommand command)
         {
-            TcpClientDispatcher tcpdispatcher = new TcpClientDispatcher();
-            tcpdispatcher.Run();
+            //与实际接收到的_fullrecvdata信息做对比
+            new TcpClientDispatcher(command).Run();
         }
 
         public void Close()

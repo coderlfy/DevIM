@@ -49,7 +49,30 @@
     <Compile Include="console\ExtConsole.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="datacontroller\DataLibBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="datacontroller\SqlType.cs" />
+    <Compile Include="dbcontroller\DBConditions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="dbcontroller\DBConditionsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="dbcontroller\EnumCondition.cs" />
+    <Compile Include="dbcontroller\EnumDB.cs" />
+    <Compile Include="dbcontroller\EnumDBReturnAccess.cs" />
+    <Compile Include="dbcontroller\EnumSqlType.cs" />
     <Compile Include="encrpt\Encrypt.cs" />
+    <Compile Include="json\DataTableConverter.cs" />
+    <Compile Include="json\JsonFilter.cs" />
+    <Compile Include="json\JsonHelper.cs" />
+    <Compile Include="json\TreeJsonHelper.cs" />
+    <Compile Include="listpage\EnumSQLOrderBY.cs" />
+    <Compile Include="listpage\PageController.cs" />
+    <Compile Include="listpage\PageParams.cs" />
+    <Compile Include="listpage\PageSort.cs" />
+    <Compile Include="listpage\PageSortCollection.cs" />
     <Compile Include="message\ExtMessage.cs" />
     <Compile Include="os\OS.cs" />
     <Compile Include="os\OSProcess.cs" />

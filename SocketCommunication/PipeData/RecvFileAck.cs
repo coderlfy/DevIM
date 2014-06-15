@@ -8,11 +8,14 @@ namespace SocketCommunication.PipeData
     public class RecvFileAck : IClientCommand
     {
 
+        public EventHandler OnStartingDownload = null;
 
 
         public override void Analysis()
         {
-            
+            if (OnStartingDownload != null)
+                OnStartingDownload(this, null);
+
         }
 
         public override List<byte> GetCommand()

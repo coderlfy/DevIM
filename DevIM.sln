@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundation.Core", "Foundatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketCommunication", "SocketCommunication\SocketCommunication.csproj", "{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessLibrary", "AccessLibrary\AccessLibrary.csproj", "{56F63788-4BE9-4F15-A3DF-BA7A4517FEF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessBase", "BusinessBase\BusinessBase.csproj", "{87098542-CBD2-4B6D-B643-81CD55A259B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89B53963-F4D0-4104-8FF2-34D4A1E4B4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F63788-4BE9-4F15-A3DF-BA7A4517FEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F63788-4BE9-4F15-A3DF-BA7A4517FEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F63788-4BE9-4F15-A3DF-BA7A4517FEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F63788-4BE9-4F15-A3DF-BA7A4517FEF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87098542-CBD2-4B6D-B643-81CD55A259B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87098542-CBD2-4B6D-B643-81CD55A259B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87098542-CBD2-4B6D-B643-81CD55A259B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87098542-CBD2-4B6D-B643-81CD55A259B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

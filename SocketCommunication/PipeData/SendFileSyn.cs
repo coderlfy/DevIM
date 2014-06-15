@@ -9,15 +9,12 @@ namespace SocketCommunication.PipeData
     {
 
 
-        public EventHandler OnStartingDownload = null;
 
         public override void Analysis()
         {
             base._SourceClient.Send((new RecvFileAck())
                 .GetProtocolCommand());
 
-            if (OnStartingDownload != null)
-                OnStartingDownload(this, null);
 
         }
 

@@ -33,17 +33,21 @@ namespace DevIM.Test
         {
             MethodInvoker gd = new MethodInvoker(() =>
             {
-                TcpClient tcpclient = new TcpClient("192.168.159.11", 1005);
+                TcpClient tcpclient = new TcpClient("192.168.159.104", 1005);
 
-                SendFileSyn command = new SendFileSyn();
-                command.OnStartingDownload += new EventHandler(StartingDownload);
+                SendFileSyn transfilesyn = new SendFileSyn();
+                
 
                 tcpclient.Connect();
 
-                tcpclient.SendToEndDevice(command.GetProtocolCommand());
+                tcpclient.SendToEndDevice(transfilesyn.GetProtocolCommand());
 
                 tcpclient.receive();
-                tcpclient.Dispatcher();
+
+                RecvFileAck transfileack = new RecvFileAck();
+                transfileack.OnStartingDownload += new EventHandler(StartingDownload);
+                tcpclient.Dispatcher(transfileack);
+
                 tcpclient.Close();
             });
 

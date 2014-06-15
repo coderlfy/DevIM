@@ -8,12 +8,21 @@ namespace SocketCommunication.TcpSocket
 {
     class TcpClientDispatcher : TcpDispatcher
     {
+        private IClientCommand _clientCommand;
 
+        public IClientCommand _ClientCommand
+        {
+            get { return _clientCommand; }
+            set { _clientCommand = value; }
+        }
+        
+        public TcpClientDispatcher(IClientCommand socketcommand)
+        {
+            this._ClientCommand = socketcommand;
+        }
         public override void Run()
         {
-            IClientCommand socketcommand = ProtocolRule.GetClientCommand(new List<byte>());
-            //socketcommand._SourceClient = this._clientSocket;
-            socketcommand.Analysis();
+            _clientCommand.Analysis();
         }
     }
 }
