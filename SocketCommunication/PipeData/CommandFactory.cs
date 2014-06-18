@@ -20,6 +20,9 @@ namespace SocketCommunication.PipeData
                 case TProtocol.SendFileSyn:
                     orgdata = new SendFileSyn();
                     break;
+                case TProtocol.SendUserValidCheck:
+                    orgdata = new SendUserValidCheck();
+                    break;
                 
             }
             return orgdata;

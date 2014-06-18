@@ -21,7 +21,7 @@ namespace SocketCommunication.PipeData
         public override List<byte> GetCommand()
         {
             List<byte> businesscommand = new List<byte>();
-            businesscommand.Add((byte)TProtocol.SendFileAck);
+            businesscommand.Add((byte)TProtocol.RecvFileAck);
             return businesscommand;
         }
     }

@@ -42,7 +42,7 @@ namespace DevIM.Test
 
                 tcpclient.SendToEndDevice(transfilesyn.GetProtocolCommand());
 
-                tcpclient.receive();
+                tcpclient.Receive();
 
                 RecvFileAck transfileack = new RecvFileAck();
                 transfileack.OnStartingDownload += new EventHandler(StartingDownload);

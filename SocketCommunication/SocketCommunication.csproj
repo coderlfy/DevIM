@@ -45,10 +45,16 @@
     <Compile Include="PipeData\IClientCommand.cs" />
     <Compile Include="PipeData\IServerCommand.cs" />
     <Compile Include="PipeData\ISocketCommand.cs" />
+    <Compile Include="PipeData\MsgResultModel.cs" />
     <Compile Include="PipeData\NoneCommand.cs" />
     <Compile Include="PipeData\ProtocolRule.cs" />
     <Compile Include="PipeData\RecvFileAck.cs" />
+    <Compile Include="PipeData\RecvFriendship.cs" />
+    <Compile Include="PipeData\RecvUserCheckResult.cs" />
     <Compile Include="PipeData\SendFileSyn.cs" />
+    <Compile Include="PipeData\SendUserValidCheck.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PipeData\TProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cache\DynamicBufferManager.cs" />
@@ -67,6 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevIMDataLibrary\DevIMDataLibrary.csproj">
+      <Project>{a44f8ca6-ab44-41b5-979a-ffd2c3a814f3}</Project>
+      <Name>DevIMDataLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

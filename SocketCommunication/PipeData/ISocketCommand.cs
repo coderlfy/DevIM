@@ -27,5 +27,33 @@ namespace SocketCommunication.PipeData
         {
             return ProtocolRule.CreatePipeCommand(this);
         }
+
+        public List<string> Split(int itemCount)
+        {
+            #region
+            List<string> analysisinfor = new List<string>();
+            string decode = UTF8Encoding.UTF8.GetString(this._AfterDecodeData.ToArray<byte>());
+
+            int startIndex = 0, findIndex = -1;
+            //此处的2可为动态
+            for (int i = 0; i < itemCount; i++)
+            {
+                findIndex = decode.IndexOf(";", startIndex);
+                if (findIndex != -1)
+                {
+                    analysisinfor.Add(decode.Substring(startIndex, findIndex - startIndex));
+                    startIndex = findIndex + 1;
+                }
+                else
+                {
+                    findIndex = decode.Length;
+                    analysisinfor.Add(decode.Substring(startIndex, findIndex - startIndex));
+                }
+
+            }
+            return analysisinfor;
+            #endregion
+        }
+
     }
 }

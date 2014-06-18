@@ -47,7 +47,7 @@ namespace SocketCommunication.TcpSocket
             }
         }
 
-        public void receive()
+        public void Receive()
         {
             #region
             _fullrecvdata = new List<byte>();
@@ -83,7 +83,14 @@ namespace SocketCommunication.TcpSocket
         public void Dispatcher(IClientCommand command)
         {
             //与实际接收到的_fullrecvdata信息做对比
-            new TcpClientDispatcher(command).Run();
+            TcpClientDispatcher clientdispatcher = new TcpClientDispatcher(command);
+            List<byte> fullrecvdata = _fullrecvdata.ToList<byte>();
+            fullrecvdata.RemoveAt(0);
+            fullrecvdata.RemoveAt(0);
+            fullrecvdata.RemoveAt(fullrecvdata.Count-1);
+            command._AfterDecodeData = fullrecvdata;
+            //command//此处添加属性
+            clientdispatcher.Run();
         }
 
         public void Close()

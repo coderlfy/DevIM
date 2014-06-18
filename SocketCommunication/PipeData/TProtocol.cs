@@ -9,8 +9,11 @@ namespace SocketCommunication.PipeData
     {
         Head=0x03,
         SendFileSyn=0x10,
-        SendFileAck=0x11,
+        RecvFileAck = 0x11,
+
         SendFileRefuse=0x12,
-        Tail=0x13
+        Tail=0x13,
+        SendUserValidCheck=0x04,
+        RecvUserCheckResult=0x05
     }
 }

@@ -28,6 +28,11 @@ namespace SocketCommunication.TcpSocket
             #region
             IServerCommand socketcommand = ProtocolRule.GetServerCommand(userData._SourceData);
             socketcommand._SourceClient = this._clientSocket;
+            //此处需要将sourcedata进行验证，解码后的数据只包括业务数据（？？？）
+            socketcommand._AfterDecodeData = userData._SourceData;
+            socketcommand._AfterDecodeData.RemoveAt(0);
+            socketcommand._AfterDecodeData.RemoveAt(0);
+            socketcommand._AfterDecodeData.RemoveAt(socketcommand._AfterDecodeData.Count - 1);
             socketcommand.Analysis();
 
             #endregion
