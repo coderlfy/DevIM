@@ -25,7 +25,7 @@ namespace IMServer
             TcpServer tcpserver = new TcpServer();
 
             tcpserver.OnError += new EventHandler<ErrorEventArgs>(socketErrorHandler);
-
+            Console.WriteLine(TcpServer.GetServerIpString());
             tcpserver.StartListen(1005);
         }
 

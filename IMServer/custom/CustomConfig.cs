@@ -23,7 +23,7 @@ namespace IMServer.custom
         private static String _appName = "DevIM Server";
         private static object _EnableAutoStartService = false;
 
-        public const String DevCompanyName = "山西ICat科技有限公司";
+        public const String DevCompanyName = "ICat科技";
         public const String Developer = "bhlfy";
         public const String HelpTelephone = "0351-7037628";
         public const String DevStartDate = "2013-10-20";

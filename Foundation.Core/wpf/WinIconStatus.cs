@@ -216,13 +216,16 @@ namespace Fundation.Core
         public void BindToWindow(Form mainFrm)
         {
             #region
-            this._mainFrm = mainFrm;
 
+            object temp = this._mainFrm;
+            this._mainFrm = mainFrm;
             this.bindWindowEvent();
 
-            this.setIconProperty();
-
-            this.bindIconEvent();
+            if (temp == null)
+            {
+                this.setIconProperty();
+                this.bindIconEvent();
+            }
             #endregion
         }
 

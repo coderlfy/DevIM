@@ -14,6 +14,8 @@ namespace SocketCommunication.PipeData
         SendFileRefuse=0x12,
         Tail=0x13,
         SendUserValidCheck=0x04,
-        RecvUserCheckResult=0x05
+        RecvUserCheckResult=0x05,
+        SendRequstFriendShip=0x06
+
     }
 }

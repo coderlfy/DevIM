@@ -1,7 +1,7 @@
 /****************************************
 ***创建人：bhlfy
 ***创建时间：2014-06-15 14:47:37
-***公司：山西博华科技有限公司
+***公司：iCat Studio
 ***修改人：
 ***修改时间：
 ***文件描述：。
@@ -22,7 +22,7 @@ namespace DevIMBusiness
         /****************************************
         ***生成器版本：V2.0.0.20540
         ***生成时间：2014-06-15 14:47:37
-        ***公司：山西博华科技有限公司
+        ***公司：iCat Studio
         ***友情提示：以下代码为生成器自动生成，可做参照修改之用；
         ***         如需有其他业务要求，可在region外添加新方法；
         ***         如发现任何编译和运行时错误，请联系QQ：330669393。
@@ -172,6 +172,21 @@ namespace DevIMBusiness
         #endregion
 
         #endregion
+
+        private DataSet GetFriendsByGroup(string uid)
+        {
+            #region
+            DBConditions querybusinessparams = new DBConditions();
+
+            querybusinessparams.Add(TUserData.uid, EnumSqlType.sqlint, EnumCondition.Equal, uid);
+
+            DataSet tuserdata = this._tuserclass
+                .SelectUserByGroup(querybusinessparams);
+
+            return tuserdata;
+            #endregion
+        }
+
     }
 }
 

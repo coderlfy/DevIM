@@ -48,14 +48,14 @@ namespace SocketCommunication.TcpSocket
         /// 获取服务端IP列表
         /// </summary>
         /// <returns></returns>
-        public static IPAddress[] GetServerIpList()
+        private static IPAddress[] GetServerIpList()
         {
             #region
             IPAddress[] ip = Dns.GetHostAddresses(Dns.GetHostName());
             return ip;
             #endregion
         }
-        private static string GetServerIpString()
+        public static string GetServerIpString()
         {
             #region
             string ipstring = "";

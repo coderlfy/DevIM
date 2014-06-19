@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevIMSqlLibrary", "DevIMSql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevIMBusiness", "DevIMBusiness\DevIMBusiness.csproj", "{F8868C1F-5A90-44E9-85B9-BD891812EA54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevIM.Model", "DevIM.Model\DevIM.Model.csproj", "{C485D40B-A596-451E-85CE-2D9E68139336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{F8868C1F-5A90-44E9-85B9-BD891812EA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8868C1F-5A90-44E9-85B9-BD891812EA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8868C1F-5A90-44E9-85B9-BD891812EA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C485D40B-A596-451E-85CE-2D9E68139336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C485D40B-A596-451E-85CE-2D9E68139336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C485D40B-A596-451E-85CE-2D9E68139336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C485D40B-A596-451E-85CE-2D9E68139336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

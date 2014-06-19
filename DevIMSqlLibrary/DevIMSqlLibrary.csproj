@@ -49,6 +49,10 @@
       <Project>{87098542-cbd2-4b6d-b643-81cd55a259b0}</Project>
       <Name>BusinessBase</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DevIMDataLibrary\DevIMDataLibrary.csproj">
+      <Project>{a44f8ca6-ab44-41b5-979a-ffd2c3a814f3}</Project>
+      <Name>DevIMDataLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foundation.Core\Fundation.Core.csproj">
       <Project>{398b7fee-94cd-4f66-a5b4-180f8e443c83}</Project>
       <Name>Fundation.Core</Name>

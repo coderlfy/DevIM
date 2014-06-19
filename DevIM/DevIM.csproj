@@ -113,6 +113,10 @@
     <EmbeddedResource Include="appclient.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DevIM.Model\DevIM.Model.csproj">
+      <Project>{c485d40b-a596-451e-85ce-2d9e68139336}</Project>
+      <Name>DevIM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DevIMDataLibrary\DevIMDataLibrary.csproj">
       <Project>{a44f8ca6-ab44-41b5-979a-ffd2c3a814f3}</Project>
       <Name>DevIMDataLibrary</Name>

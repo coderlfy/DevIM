@@ -52,6 +52,7 @@
     <Compile Include="PipeData\RecvFriendship.cs" />
     <Compile Include="PipeData\RecvUserCheckResult.cs" />
     <Compile Include="PipeData\SendFileSyn.cs" />
+    <Compile Include="PipeData\SendRequstFriendShip.cs" />
     <Compile Include="PipeData\SendUserValidCheck.cs">
       <SubType>Code</SubType>
     </Compile>

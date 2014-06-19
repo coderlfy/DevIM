@@ -32,7 +32,7 @@ namespace SocketCommunication.PipeData
         public override void Analysis()
         {
             List<string> analysisinfor = base.Split(2);
-
+            //在数据库中验证用户合法性？？？
             RecvUserCheckResult cmd = new RecvUserCheckResult();
             cmd._Result = new MsgResultModel()
             {
