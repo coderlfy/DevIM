@@ -173,7 +173,7 @@ namespace DevIMBusiness
 
         #endregion
 
-        private DataSet GetFriendsByGroup(string uid)
+        public DataSet GetFriendsByGroup(string uid)
         {
             #region
             DBConditions querybusinessparams = new DBConditions();

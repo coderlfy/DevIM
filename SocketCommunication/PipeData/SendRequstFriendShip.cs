@@ -1,8 +1,12 @@
-﻿using DevIMDataLibrary;
+﻿using DevIMBusiness;
+using DevIMDataLibrary;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace SocketCommunication.PipeData
 {
@@ -16,9 +20,87 @@ namespace SocketCommunication.PipeData
             set { _userInfor = value; }
         }
 
+        private StringBuilder addGroupToXML(string uid)
+        {
+            #region
+            GroupBusiness groupbusiness = new GroupBusiness();
+            GroupData groupdata = groupbusiness.GetGroupByUid(uid);
+            StringBuilder FriendInf = new StringBuilder();
+            FriendInf.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            FriendInf.Append("<root>");
+            if (groupdata == null)
+            {
+                FriendInf.Append("<FriendGroup GroupName=\"没有分组\"></FriendGroup>");
+            }
+            else
+            {
+                for (int i = 0; i < groupdata.Tables[0].Rows.Count; i++)
+                {
+                    FriendInf.Append("<FriendGroup GroupName=\"");
+                    FriendInf.Append(groupdata.Tables[0].Rows[i][GroupData.groupName].ToString().Trim());
+                    FriendInf.Append("\"></FriendGroup>");
+                }
+            }
+            FriendInf.Append("</root>");
+            return FriendInf;
+            #endregion
+        }
+
+        private void makeFriendsXML(string path, string uid)
+        {
+            #region
+            
+            StreamWriter temp = new StreamWriter(path);
+
+            temp.Write(addGroupToXML(uid).ToString());
+            temp.Close();
+
+            addFriendsToXML(path, uid);
+            #endregion
+        }
+
+        private void addFriendsToXML(string path, string uid)
+        {
+            #region
+            TUserBusiness userbusiness = new TUserBusiness();
+            DataSet friends = userbusiness.GetFriendsByGroup(uid);
+            XmlDataDocument temp = new XmlDataDocument();
+            temp.Load(path);
+
+            XmlNodeList AllGroup = temp.SelectSingleNode("root").ChildNodes;
+            foreach (XmlNode node in AllGroup)
+            {
+                string filter = string.Format("{0}='{1}'",
+                    GroupData.groupName, node.Attributes["GroupName"].Value);
+                DataRow[] drarr = friends.Tables[0].Select(filter);
+                foreach(DataRow dr in drarr)
+                {
+                    XmlElement friend = temp.CreateElement("friend");
+                    XmlElement FriendNumber = temp.CreateElement("FriendNumber");
+                    XmlElement FriendName = temp.CreateElement("FriendName");
+
+                    FriendName.InnerText = dr["friendFullname"].ToString().Trim();
+                    FriendNumber.InnerText = dr["friendQQ"].ToString().Trim();
+                    friend.AppendChild(FriendNumber);
+                    friend.AppendChild(FriendName);
+                    node.AppendChild(friend);
+                    //break;
+                }
+            }
+            temp.Save(path);
+            #endregion
+        }
+
         public override void Analysis()
         {
-            throw new NotImplementedException();
+            #region
+            List<string> analysisinfor = base.Split(3);
+            string path = string.Format("temp\\{0}.xml", analysisinfor[0]);
+            //构造xml好友组
+            makeFriendsXML(path, analysisinfor[0]);
+            //发送给
+            base._SourceClient.SendFile(path);
+            #endregion
         }
 
         public override List<byte> GetCommand()

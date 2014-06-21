@@ -23,6 +23,9 @@ namespace SocketCommunication.PipeData
                 case TProtocol.SendUserValidCheck:
                     orgdata = new SendUserValidCheck();
                     break;
+                case TProtocol.SendRequstFriendShip:
+                    orgdata = new SendRequstFriendShip();
+                    break;
                 
             }
             return orgdata;

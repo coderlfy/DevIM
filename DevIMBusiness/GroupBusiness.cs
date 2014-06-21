@@ -168,6 +168,16 @@ namespace DevIMBusiness
         #endregion
 
         #endregion
+        public GroupData GetGroupByUid(string uid)
+        {
+            #region
+            GroupData groupdata = new GroupData();
+            DBConditions querybusinessparams = new DBConditions();
+            querybusinessparams.Add(GroupData.uid, EnumSqlType.sqlint, EnumCondition.Equal, uid);
+            this._groupclass.GetSingleTAllWithoutCount(groupdata, querybusinessparams);
+            return groupdata;
+            #endregion
+        }
     }
 }
 

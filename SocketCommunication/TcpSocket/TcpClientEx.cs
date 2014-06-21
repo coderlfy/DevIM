@@ -5,22 +5,26 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using SocketCommunication.PipeData;
+using System.IO;
 
 namespace SocketCommunication.TcpSocket
 {
-    public class TcpClient
+    public class TcpClientEx
     {
+        
         private IPAddress destIpAddress = null;
 
         private int destMachinePort = 1005;
 
-        private Socket _clientSocket = null;
+        private TcpClient _clientSocket = null;
 
         private byte[] _RecvBytes = new byte[1024];
 
         private static List<byte> _fullrecvdata = null;
 
-        public TcpClient(string ipAddr, int port)
+        private Stream _pipeStream = null;
+
+        public TcpClientEx(string ipAddr, int port)
         {
             destIpAddress = IPAddress.Parse(ipAddr);
             destMachinePort = port;
@@ -29,10 +33,12 @@ namespace SocketCommunication.TcpSocket
         public void Connect()
         {
             #region
-            _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _clientSocket = new TcpClient();
             IPEndPoint ServerInfo = new IPEndPoint(this.destIpAddress, this.destMachinePort);
-            _clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 30000);
+            //_clientSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 30000);
             _clientSocket.Connect(ServerInfo);
+            _pipeStream = this._clientSocket.GetStream();
+
             #endregion
         }
 
@@ -40,20 +46,33 @@ namespace SocketCommunication.TcpSocket
         {
             try
             {
-                _clientSocket.Send(data);
+                _pipeStream.Write(data, 0, data.Length);
             }
             catch
             {
             }
         }
-
+        public void ReceiveFile()
+        { 
+            StreamWriter OnlineInf = new StreamWriter("online.dat");
+            int k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
+			while(k>0)
+			{
+                string Str = System.Text.UTF8Encoding.UTF8.GetString(_RecvBytes, 0, k);
+				OnlineInf.Write(Str);
+                OnlineInf.Flush();
+                k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
+			}
+            
+            OnlineInf.Close();
+        }
         public void Receive()
         {
             #region
             _fullrecvdata = new List<byte>();
             while (true)
             {
-                Int32 bytes = _clientSocket.Receive(_RecvBytes, _RecvBytes.Length, SocketFlags.None);
+                Int32 bytes = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
                 int index0x13 = -1;
 
                 if (bytes > 0)
@@ -98,7 +117,7 @@ namespace SocketCommunication.TcpSocket
             if (_clientSocket != null)
             {
                 _clientSocket.Close();
-                _clientSocket.Dispose();
+                //_clientSocket.Dispose();
             }
 
         }

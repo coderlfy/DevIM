@@ -164,7 +164,7 @@ namespace BusinessBase
             {
                 string tablename = (fillDs.Tables.Count > 0) ? 
                     fillDs.Tables[0].TableName : "tablename";
-                string sqlformat = "select {0} from {1}";
+                string sqlformat = "select {0} from [{1}]";
 
                 //this.setConnectString(dbaccess);
 
@@ -311,7 +311,7 @@ namespace BusinessBase
             {
                 string tablename = "";
                 string keyname = "";
-                string sql = "select max({0}) from {1}";
+                string sql = "select max({0}) from [{1}]";
                 
                 gettablekey(destDs, ref tablename, ref keyname);
                 sql = string.Format(sql, keyname, tablename);

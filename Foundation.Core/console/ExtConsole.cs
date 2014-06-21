@@ -39,5 +39,18 @@ namespace Fundation.Core
             Console.WriteLine(text);
             #endregion
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytes"></param>
+        public static void WriteByteArray(byte[] bytes)
+        {
+            StringBuilder viewcontent = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                byte temp = bytes[i];
+                viewcontent.Append(string.Format("0x{0} ", temp.ToString("X2")));
+            }
+        }
     }
 }

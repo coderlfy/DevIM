@@ -30,14 +30,17 @@ namespace DevIM
         */
         private void UserMainWindow_Load(object sender, EventArgs e)
         {
-
+            MethodInvoker gd = new MethodInvoker(RequestUserList);
+            //异步请求中传入callback方法控制变化UI的最终结果？
+            //其实上述方法应该返回bool类型，以确定返回登录是否成功。
+            gd.BeginInvoke(null, null);
         }
 
         public void RequestUserList()
         {
             #region
 
-            TcpClient tcpclient = new TcpClient(
+            TcpClientEx tcpclient = new TcpClientEx(
                 ServerInfor._Ip, ServerInfor._Port);
 
             SendRequstFriendShip sendrequestfriendship = 
@@ -46,19 +49,13 @@ namespace DevIM
 
             byte[] command = sendrequestfriendship.GetProtocolCommand();
 
-            //下述5行代码可复用，用来显示发送指令是否预期
-            StringBuilder viewcontent = new StringBuilder();
-            for (int i = 0; i < command.Length; i++)
-            {
-                byte temp = command[i];
-                viewcontent.Append(string.Format("0x{0} ", temp.ToString("X2")));
-            }
+            ExtConsole.WriteByteArray(command);
 
             tcpclient.Connect();
 
             tcpclient.SendToEndDevice(command);
 
-            //tcpclient.Receive();
+            tcpclient.ReceiveFile();
 
             //RecvUserCheckResult usercheckresult = new RecvUserCheckResult();
 
@@ -66,7 +63,7 @@ namespace DevIM
 
             //Console.WriteLine(usercheckresult._Result._Message);
 
-            tcpclient.Close();
+            //tcpclient.Close();
             #endregion
         }
 

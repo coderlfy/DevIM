@@ -43,17 +43,31 @@ namespace DevIM
             MethodInvoker gd = new MethodInvoker(UserLogonRequest);
             //异步请求中传入callback方法控制变化UI的最终结果？
             //其实上述方法应该返回bool类型，以确定返回登录是否成功。
-            gd.BeginInvoke(null, null);
-
+            AsyncCallback callbak = new AsyncCallback(AfterUserCheck);
+            gd.BeginInvoke(callbak, gd);
             //登录成功则本窗口隐藏，主视图为UserMainWindow
-            this.Hide();
 
-            UserMainWindow mainwindow = new UserMainWindow();
-            mainwindow.Show();
-            _iconStatus.BindToWindow(mainwindow);
+            
             #endregion
         }
 
+        private void AfterUserCheck(IAsyncResult result)
+        {
+            #region
+            MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
+            dl_do.EndInvoke(result);
+
+            if(this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => { 
+                    this.Hide();
+                    UserMainWindow mainwindow = new UserMainWindow();
+                    mainwindow.Show();
+                    _iconStatus.BindToWindow(mainwindow);
+                }));
+            }
+            #endregion
+        }
         private bool CheckFormatValid()
         {
             #region
@@ -69,21 +83,13 @@ namespace DevIM
         {
             #region
 
-            TcpClient tcpclient = new TcpClient(
+            TcpClientEx tcpclient = new TcpClientEx(
                 ServerInfor._Ip, ServerInfor._Port);
 
             SendUserValidCheck senduservalidcheck = new 
                 SendUserValidCheck() { _UserInfor = _User };
 
             byte[] command = senduservalidcheck.GetProtocolCommand();
-
-            //下述5行代码可复用，用来显示发送指令是否预期
-            StringBuilder viewcontent = new StringBuilder();
-            for (int i = 0; i < command.Length; i++)
-            {
-                byte temp = command[i];
-                viewcontent.Append(string.Format("0x{0} ", temp.ToString("X2")));
-            }
 
             tcpclient.Connect();
 
@@ -95,7 +101,6 @@ namespace DevIM
 
             tcpclient.Dispatcher(usercheckresult);
 
-            Console.WriteLine(usercheckresult._Result._Message);
             _User.uid = "1";
 
             tcpclient.Close();
@@ -107,6 +112,8 @@ namespace DevIM
             #region
             _iconStatus = new WinIconStatus("appclient.ico");
             _iconStatus.BindToWindow(this);
+
+            _User = new EntityTUser();
             #endregion
         }
 

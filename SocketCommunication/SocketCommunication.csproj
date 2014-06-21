@@ -65,7 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TcpSocket\TcpServerDispatcher.cs" />
-    <Compile Include="TcpSocket\TcpClient.cs" />
+    <Compile Include="TcpSocket\TcpClientEx.cs" />
     <Compile Include="TcpSocket\TcpServer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +76,21 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessBase\BusinessBase.csproj">
+      <Project>{87098542-cbd2-4b6d-b643-81cd55a259b0}</Project>
+      <Name>BusinessBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevIMBusiness\DevIMBusiness.csproj">
+      <Project>{f8868c1f-5a90-44e9-85b9-bd891812ea54}</Project>
+      <Name>DevIMBusiness</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DevIMDataLibrary\DevIMDataLibrary.csproj">
       <Project>{a44f8ca6-ab44-41b5-979a-ffd2c3a814f3}</Project>
       <Name>DevIMDataLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundation.Core\Fundation.Core.csproj">
+      <Project>{398b7fee-94cd-4f66-a5b4-180f8e443c83}</Project>
+      <Name>Fundation.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,6 +39,7 @@ namespace SocketCommunication.PipeData
                 _Success = (analysisinfor[0] == "00000"),
                 _Message = (analysisinfor[0] == "00000") ? "通过！" : "验证失败！"
             };
+            Console.WriteLine("用户名：{0}", analysisinfor[0]);
             base._SourceClient.Send(cmd.GetProtocolCommand());
 
         }

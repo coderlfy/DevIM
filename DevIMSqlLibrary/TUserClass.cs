@@ -27,10 +27,10 @@ namespace DevIMSqlLibrary
         {
             #region
             DataSet userbygroupdata = new DataSet();
-            string businessSql = @"SELECT a.uid, a.[userid], d.[userid] as friendQQ,
-	c.[groupName], a.[userfullName], d.[UserFullName] as friendFullname from [TUser] a 
-	inner join [Friendship] b on a.[uid] = b.[meId] 
-	inner join [Group] c on b.[gid] = c.[gid] and a.[uid] = c.[uid]
+            string businessSql = @"SELECT a.[uid], a.[userid], d.[userid] as friendQQ,
+	c.[groupName], a.[userfullName], d.[UserFullName] as friendFullname from [Friendship] b
+	inner join [TUser] a  on a.[uid] = b.[meId] 
+	inner join [Group] c on b.[gid] = c.[gid] 
 	left join [TUser] d on b.[friendid] = d.[uid] ";
 
             conditions.AddKeys(TUserData.uid);

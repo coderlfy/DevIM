@@ -33,7 +33,7 @@ namespace DevIM.Test
         {
             MethodInvoker gd = new MethodInvoker(() =>
             {
-                TcpClient tcpclient = new TcpClient("192.168.159.104", 1005);
+                TcpClientEx tcpclient = new TcpClientEx("192.168.159.104", 1005);
 
                 SendFileSyn transfilesyn = new SendFileSyn();
                 
