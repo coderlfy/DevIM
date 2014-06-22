@@ -30,13 +30,13 @@ namespace SocketCommunication.PipeData
             FriendInf.Append("<root>");
             if (groupdata == null)
             {
-                FriendInf.Append("<FriendGroup GroupName=\"没有分组\"></FriendGroup>");
+                FriendInf.Append("<FriendGroup groupName=\"没有分组\"></FriendGroup>");
             }
             else
             {
                 for (int i = 0; i < groupdata.Tables[0].Rows.Count; i++)
                 {
-                    FriendInf.Append("<FriendGroup GroupName=\"");
+                    FriendInf.Append("<FriendGroup groupName=\"");
                     FriendInf.Append(groupdata.Tables[0].Rows[i][GroupData.groupName].ToString().Trim());
                     FriendInf.Append("\"></FriendGroup>");
                 }
@@ -71,7 +71,7 @@ namespace SocketCommunication.PipeData
             foreach (XmlNode node in AllGroup)
             {
                 string filter = string.Format("{0}='{1}'",
-                    GroupData.groupName, node.Attributes["GroupName"].Value);
+                    GroupData.groupName, node.Attributes["groupName"].Value);
                 DataRow[] drarr = friends.Tables[0].Select(filter);
                 foreach(DataRow dr in drarr)
                 {
@@ -100,6 +100,7 @@ namespace SocketCommunication.PipeData
             makeFriendsXML(path, analysisinfor[0]);
             //发送给
             base._SourceClient.SendFile(path);
+            base._SourceClient.Close();
             #endregion
         }
 

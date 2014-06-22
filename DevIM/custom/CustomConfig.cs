@@ -1,4 +1,5 @@
-﻿using Fundation.Core;
+﻿using DevIM.Model;
+using Fundation.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,7 +133,7 @@ namespace DevIM.custom
 
             Config.Get(CustomConfig.EnableAutoStartServiceKeyName ,ref _EnableAutoStartService);
 
-            //MiddleDBConnectionString = Config.GetConnectString(MiddleDBKeyName);
+            ServerInfor.GetParamsFromConfig();
             #endregion
         }
     }

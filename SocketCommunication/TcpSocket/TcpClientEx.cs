@@ -53,18 +53,25 @@ namespace SocketCommunication.TcpSocket
             }
         }
         public void ReceiveFile()
-        { 
-            StreamWriter OnlineInf = new StreamWriter("online.dat");
-            int k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
-			while(k>0)
-			{
-                string Str = System.Text.UTF8Encoding.UTF8.GetString(_RecvBytes, 0, k);
-				OnlineInf.Write(Str);
-                OnlineInf.Flush();
-                k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
-			}
-            
-            OnlineInf.Close();
+        {
+            try
+            {
+                StreamWriter OnlineInf = new StreamWriter("online.dat");
+                int k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
+                while (k > 0)
+                {
+                    string Str = System.Text.UTF8Encoding.UTF8.GetString(_RecvBytes, 0, k);
+                    OnlineInf.Write(Str);
+                    OnlineInf.Flush();
+                    k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
+                }
+
+                OnlineInf.Close();
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
         }
         public void Receive()
         {

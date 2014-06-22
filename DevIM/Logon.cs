@@ -71,10 +71,18 @@ namespace DevIM
         private bool CheckFormatValid()
         {
             #region
-            ServerInfor._Ip = this.tbServerIP.Text;
-            ServerInfor._Port = int.Parse(this.tbServerPort.Text);
+            object serverip, serverport;
+
+            serverip = this.tbServerIP.Text;
+            serverport = this.tbServerPort.Text;
             _User.userid = this.tbUserName.Text;
             _User.userpwd = this.tbUserPwd.Text;
+
+            Config.Update(ServerInfor.KeyNameServerIP, ref serverip);
+            Config.Update(ServerInfor.KeyNameServerPort, ref serverport);
+
+            ServerInfor._Ip = serverip;
+            ServerInfor._Port = Convert.ToInt16(serverport);
             return true;
             #endregion
         }
@@ -84,7 +92,7 @@ namespace DevIM
             #region
 
             TcpClientEx tcpclient = new TcpClientEx(
-                ServerInfor._Ip, ServerInfor._Port);
+                ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
             SendUserValidCheck senduservalidcheck = new 
                 SendUserValidCheck() { _UserInfor = _User };
@@ -114,6 +122,11 @@ namespace DevIM
             _iconStatus.BindToWindow(this);
 
             _User = new EntityTUser();
+
+
+            //封装？
+            this.tbServerIP.Text = ServerInfor._Ip.ToString();
+            this.tbServerPort.Text = ServerInfor._Port.ToString();
             #endregion
         }
 

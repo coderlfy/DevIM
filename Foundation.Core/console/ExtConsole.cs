@@ -51,6 +51,7 @@ namespace Fundation.Core
                 byte temp = bytes[i];
                 viewcontent.Append(string.Format("0x{0} ", temp.ToString("X2")));
             }
+            Console.WriteLine(viewcontent.ToString());
         }
     }
 }

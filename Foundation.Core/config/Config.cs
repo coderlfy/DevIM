@@ -61,8 +61,15 @@ namespace Fundation.Core
             if (!_configCacheGroup.Contains(keyName))
             {
                 if (value == null)
+                { 
                     Save(keyName.ToString(), defaultValue.ToString());
-                _configCacheGroup.Add(keyName, defaultValue);
+                    _configCacheGroup.Add(keyName, defaultValue);
+                }
+                else
+                { 
+                    _configCacheGroup.Add(keyName, value);
+                    defaultValue = value;
+                }
             }
             else
                 defaultValue = _configCacheGroup[keyName];
