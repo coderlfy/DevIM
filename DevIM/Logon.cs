@@ -94,7 +94,7 @@ namespace DevIM
             TcpClientEx tcpclient = new TcpClientEx(
                 ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
-            SendUserValidCheck senduservalidcheck = new 
+            SendUserValidCheck senduservalidcheck = new
                 SendUserValidCheck() { _UserInfor = _User };
 
             byte[] command = senduservalidcheck.GetProtocolCommand();
@@ -109,7 +109,7 @@ namespace DevIM
 
             tcpclient.Dispatcher(usercheckresult);
 
-            _User.uid = "1";
+            _User.uid = (_User.userid == "00000") ? "1" : "2";
 
             tcpclient.Close();
             #endregion

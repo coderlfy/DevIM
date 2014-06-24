@@ -1,4 +1,5 @@
-﻿using DevIM.custom;
+﻿using DevIM.chat;
+using DevIM.custom;
 using DevIM.Model;
 using DevIM.Test;
 using DevIMDataLibrary;
@@ -23,22 +24,25 @@ namespace DevIM
         {
             InitializeComponent();
         }
-
-        /*
-        private void btnTestSend_Click(object sender, EventArgs e)
-        {
-            (new TestSendFile()).ShowDialog();
-        }
-        */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserMainWindow_Load(object sender, EventArgs e)
         {
+            #region
             AsyncCallback callbak = new AsyncCallback(fillTreefriend);
-            MethodInvoker gd = new MethodInvoker(RequestUserList);
+            MethodInvoker gd = new MethodInvoker(requestUserList);
             //异步请求中传入callback方法控制变化UI的最终结果？
             //其实上述方法应该返回bool类型，以确定返回登录是否成功。
             gd.BeginInvoke(callbak, gd);
+            #endregion
         }
-        private void RequestUserList()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void requestUserList()
         {
             #region
 
@@ -67,12 +71,25 @@ namespace DevIM
 
             tcpclient.Close();
 
+           
+            
             #endregion
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="result"></param>
         private void fillTreefriend(IAsyncResult result)
         {
+            #region
             MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
             dl_do.EndInvoke(result);
+
+            //测试注册侦听
+            MethodInvoker gd = new MethodInvoker(() => {
+                (new ChatClient()).RegisterListen();
+            });
+            gd.BeginInvoke(null, null);
 
             if (this.InvokeRequired)
             {
@@ -93,9 +110,16 @@ namespace DevIM
                     }
                 }));
             }
+            #endregion
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fatherId"></param>
+        /// <param name="father"></param>
         private void fillFriendsChild(int fatherId, XmlNode father)
         {
+            #region
             for (int i = 0; i < father.ChildNodes.Count; i++)
             {
                 TreeNode son = new TreeNode();
@@ -114,12 +138,19 @@ namespace DevIM
                 //}
                 this.tFriend.Nodes[fatherId].Nodes.Add(son);
             }
+            #endregion
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tFriend_DoubleClick(object sender, EventArgs e)
         {
+            #region
             P2P p2pwindow = new P2P();
             p2pwindow.Show();
+            #endregion
         }
 
 

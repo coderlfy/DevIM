@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatContent.cs" />
     <Compile Include="entity\EntityFriendship.cs" />
     <Compile Include="entity\EntityGroup.cs" />
     <Compile Include="entity\EntityTUser.cs" />

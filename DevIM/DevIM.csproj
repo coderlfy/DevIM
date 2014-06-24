@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="chat\ChatClient.cs" />
     <Compile Include="custom\CustomConfig.cs" />
     <Compile Include="Logon.cs">
       <SubType>Form</SubType>

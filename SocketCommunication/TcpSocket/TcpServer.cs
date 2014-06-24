@@ -84,6 +84,7 @@ namespace SocketCommunication.TcpSocket
             #region
             try
             {
+                CustomerCollector.Init();
                 IPEndPoint localEP = new IPEndPoint(IPAddress.Any, serverPort);
                 _tcpServer = new Socket(localEP.Address.AddressFamily, 
                     SocketType.Stream, ProtocolType.Tcp);

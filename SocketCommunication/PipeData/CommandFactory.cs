@@ -26,7 +26,12 @@ namespace SocketCommunication.PipeData
                 case TProtocol.SendRequstFriendShip:
                     orgdata = new SendRequstFriendShip();
                     break;
-                
+                case TProtocol.SendChatContent:
+                    orgdata = new SendChatContent();
+                    break;
+                case TProtocol.SendRegisterClientListen:
+                    orgdata = new SendRegisterClientListen();
+                    break;
             }
             return orgdata;
                     /*

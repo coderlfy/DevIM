@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Cache\CustomerByteData.cs" />
     <Compile Include="Cache\Customer.cs" />
+    <Compile Include="Cache\CustomerCollector.cs" />
     <Compile Include="PipeData\CommandFactory.cs" />
     <Compile Include="PipeData\IClientCommand.cs" />
     <Compile Include="PipeData\IServerCommand.cs" />
@@ -48,10 +49,13 @@
     <Compile Include="PipeData\MsgResultModel.cs" />
     <Compile Include="PipeData\NoneCommand.cs" />
     <Compile Include="PipeData\ProtocolRule.cs" />
+    <Compile Include="PipeData\RecvChatContent.cs" />
     <Compile Include="PipeData\RecvFileAck.cs" />
     <Compile Include="PipeData\RecvFriendship.cs" />
     <Compile Include="PipeData\RecvUserCheckResult.cs" />
+    <Compile Include="PipeData\SendChatContent.cs" />
     <Compile Include="PipeData\SendFileSyn.cs" />
+    <Compile Include="PipeData\SendRegisterClientListen.cs" />
     <Compile Include="PipeData\SendRequstFriendShip.cs" />
     <Compile Include="PipeData\SendUserValidCheck.cs">
       <SubType>Code</SubType>

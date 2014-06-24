@@ -1,5 +1,6 @@
 ﻿using Fundation.Core;
 using IMServer.custom;
+using SocketCommunication.Cache;
 using SocketCommunication.Error;
 using SocketCommunication.TcpSocket;
 using System;
@@ -40,6 +41,11 @@ namespace IMServer
             CustomConfig.GetSystemParameters();
             LogInterface.Listen(CustomConfig.LogDirectoryName.ToString());
             Console.Write(sizeof(int));
+        }
+
+        private void btnViewOnline_Click(object sender, EventArgs e)
+        {
+            CustomerCollector.ViewToConsole();
         }
     }
 }

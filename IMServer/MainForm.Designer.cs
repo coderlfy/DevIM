@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.btnStartListen = new System.Windows.Forms.Button();
+            this.btnViewOnline = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnStartListen
             // 
-            this.btnStartListen.Location = new System.Drawing.Point(166, 46);
+            this.btnStartListen.Location = new System.Drawing.Point(133, 46);
             this.btnStartListen.Name = "btnStartListen";
             this.btnStartListen.Size = new System.Drawing.Size(75, 23);
             this.btnStartListen.TabIndex = 0;
@@ -41,11 +42,22 @@
             this.btnStartListen.UseVisualStyleBackColor = true;
             this.btnStartListen.Click += new System.EventHandler(this.btnStartListen_Click);
             // 
+            // btnViewOnline
+            // 
+            this.btnViewOnline.Location = new System.Drawing.Point(214, 46);
+            this.btnViewOnline.Name = "btnViewOnline";
+            this.btnViewOnline.Size = new System.Drawing.Size(116, 23);
+            this.btnViewOnline.TabIndex = 1;
+            this.btnViewOnline.Text = "显示在线信息";
+            this.btnViewOnline.UseVisualStyleBackColor = true;
+            this.btnViewOnline.Click += new System.EventHandler(this.btnViewOnline_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 129);
+            this.Controls.Add(this.btnViewOnline);
             this.Controls.Add(this.btnStartListen);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -58,6 +70,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnStartListen;
+        private System.Windows.Forms.Button btnViewOnline;
     }
 }
 
