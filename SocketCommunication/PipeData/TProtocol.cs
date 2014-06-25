@@ -17,6 +17,8 @@ namespace SocketCommunication.PipeData
         SendRequstFriendShip = 0x06,
         SendChatContent = 0x14,
         SendRegisterClientListen = 0x15,
-        RecvChatContent = 0x16
+        RecvChatContent = 0x16,
+        SendOnlineMarkup = 0x17,
+        RecvOnlineMarkup = 0x18
     }
 }

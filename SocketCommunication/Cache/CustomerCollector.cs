@@ -32,14 +32,14 @@ namespace SocketCommunication.Cache
                 
         }
 
-        public static bool IsExist(Customer customer)
+        public static Customer IsExist(Customer customer)
         {
             #region
             newCustomer = customer;
             if (_Customers.Count > 0)
-                return (_Customers.Find(existContent) != null);
+                return _Customers.Find(existContent);
             else
-                return false;
+                return null;
             #endregion
         }
 
@@ -90,9 +90,18 @@ namespace SocketCommunication.Cache
         public static string ToString()
         {
             StringBuilder str = new StringBuilder();
+            object[] param = new object[5];
             foreach (Customer temp in _customers)
-                str.AppendLine(string.Format("UID:{0},IPAddress:{1},ClientPort:{2}",
-                    temp._UId, temp.IPAddress, temp.Port));
+            {
+                param[0] = temp._UId;
+                param[1] = temp.IPAddress;
+                param[2] = temp.Port;
+                param[3] = temp._LogonTime;
+                param[4] = temp._UpdateTime;
+
+                str.AppendLine(string.Format("UID:{0},IPAddress:{1},ClientPort:{2},LoginTime:{3},UpdateTime:{4}",
+                    param));
+            }
             return str.ToString();
         }
 

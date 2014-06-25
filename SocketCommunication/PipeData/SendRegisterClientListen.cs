@@ -26,10 +26,11 @@ namespace SocketCommunication.PipeData
                 _UId = int.Parse(analysisinfor[0]),
                 IPAddress = endremotepoint.Address.ToString(),
                 Port = endremotepoint.Port,
-                _SrcSocket = base._SourceClient
+                _SrcSocket = base._SourceClient,
+                _LogonTime = DateTime.Now
             };
             Console.WriteLine("本次来源端口号：{0}", endremotepoint.Port);
-            if (!CustomerCollector.IsExist(customer))
+            if (CustomerCollector.IsExist(customer)==null)
                 CustomerCollector.Add(customer);
 
         }

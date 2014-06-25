@@ -37,15 +37,22 @@ namespace SocketCommunication.PipeData
             if (!verify(pipeData))
                 return null;
             else
-                return CommandFactory.
-                    CreateSocketCommandObject((TProtocol)pipeData[1]);
+                return CommandFactory.CreateServerCommandObject(
+                    (TProtocol)pipeData[1]);
             #endregion
         }
 
         public static IClientCommand GetClientCommand(
             List<byte> pipeData)
         {
-            return new RecvFileAck();
+            #region
+
+            if (!verify(pipeData))
+                return null;
+            else
+                return CommandFactory.CreateClientCommandObject(
+                    (TProtocol)pipeData[1]);
+            #endregion
         }
 
 

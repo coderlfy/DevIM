@@ -7,16 +7,14 @@ namespace SocketCommunication.PipeData
 {
     public class CommandFactory
     {
-        public static IServerCommand CreateSocketCommandObject(
+        public static IServerCommand CreateServerCommandObject(
             TProtocol tprotocol)
         {
             #region
             IServerCommand orgdata = null;
             switch (tprotocol)
             { 
-                //case TProtocol.SendFileAck:
-                //    orgdata = new SendFileAck();
-                //    break;
+
                 case TProtocol.SendFileSyn:
                     orgdata = new SendFileSyn();
                     break;
@@ -32,6 +30,9 @@ namespace SocketCommunication.PipeData
                 case TProtocol.SendRegisterClientListen:
                     orgdata = new SendRegisterClientListen();
                     break;
+                case TProtocol.SendOnlineMarkup:
+                    orgdata = new SendOnlineMarkup();
+                    break;
             }
             return orgdata;
                     /*
@@ -43,6 +44,20 @@ namespace SocketCommunication.PipeData
             orgdata._AfterDecodeData = decode(pipeData);
             return orgdata;
                      * */
+            #endregion
+        }
+        public static IClientCommand CreateClientCommandObject(
+            TProtocol tprotocol)
+        {
+            #region
+            IClientCommand orgdata = null;
+            switch (tprotocol)
+            {
+                case TProtocol.RecvChatContent:
+                    orgdata = new RecvChatContent();
+                    break;
+            }
+            return orgdata;
             #endregion
         }
 

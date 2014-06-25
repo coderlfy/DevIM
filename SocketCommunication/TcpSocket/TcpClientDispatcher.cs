@@ -20,9 +20,26 @@ namespace SocketCommunication.TcpSocket
         {
             this._ClientCommand = socketcommand;
         }
+
+        public TcpClientDispatcher()
+        {
+            
+        }
+
         public override void Run()
         {
             _clientCommand.Analysis();
+        }
+
+        public void RunAll(List<byte> data)
+        {
+            IClientCommand socketcommand = ProtocolRule.GetClientCommand(data);
+            socketcommand._AfterDecodeData = data;
+            socketcommand._AfterDecodeData.RemoveAt(0);
+            socketcommand._AfterDecodeData.RemoveAt(0);
+            socketcommand._AfterDecodeData.RemoveAt(socketcommand._AfterDecodeData.Count - 1);
+            socketcommand.Analysis();
+
         }
     }
 }

@@ -94,6 +94,8 @@ namespace SocketCommunication.TcpSocket
                 _thdReceive = new Thread(new ThreadStart(receiveSocket));
                 _thdReceive.IsBackground = true;
                 _thdReceive.Start();
+
+                (new TcpOnlineListener()).Start();
                 return true;
             }
             catch (Exception e)

@@ -47,7 +47,25 @@ namespace SocketCommunication.Cache
             get { return _srcSocket; }
             set { _srcSocket = value; }
         }
-        
-        
+
+        private DateTime _logonTime;
+        /// <summary>
+        /// 登录时刻
+        /// </summary>
+        public DateTime _LogonTime
+        {
+            get { return _logonTime; }
+            set { _logonTime = value; }
+        }
+
+        private DateTime _updateTime;
+        /// <summary>
+        /// 更新在线时刻
+        /// </summary>
+        public DateTime _UpdateTime
+        {
+            get { return _updateTime; }
+            set { _updateTime = value; }
+        }
     }
 }

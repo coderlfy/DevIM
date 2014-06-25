@@ -52,9 +52,11 @@
     <Compile Include="PipeData\RecvChatContent.cs" />
     <Compile Include="PipeData\RecvFileAck.cs" />
     <Compile Include="PipeData\RecvFriendship.cs" />
+    <Compile Include="PipeData\RecvOnlineMarkup.cs" />
     <Compile Include="PipeData\RecvUserCheckResult.cs" />
     <Compile Include="PipeData\SendChatContent.cs" />
     <Compile Include="PipeData\SendFileSyn.cs" />
+    <Compile Include="PipeData\SendOnlineMarkup.cs" />
     <Compile Include="PipeData\SendRegisterClientListen.cs" />
     <Compile Include="PipeData\SendRequstFriendShip.cs" />
     <Compile Include="PipeData\SendUserValidCheck.cs">
@@ -68,6 +70,7 @@
     <Compile Include="TcpSocket\TcpDispatcher.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TcpSocket\TcpOnlineListener.cs" />
     <Compile Include="TcpSocket\TcpServerDispatcher.cs" />
     <Compile Include="TcpSocket\TcpClientEx.cs" />
     <Compile Include="TcpSocket\TcpServer.cs" />

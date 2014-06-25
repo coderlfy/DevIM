@@ -69,28 +69,49 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
             #endregion
         }
+        public void Send(byte[] data)
+        {
+            #region
+            TcpClientEx tcpclient = ChatClient.ConnectServer();
 
+            tcpclient.SendToEndDevice(data);
+
+            tcpclient.Close();
+
+            #endregion
+        }
         public void RegisterListen()
         {
             #region
             TcpClientEx tcpclient = ChatClient.ConnectServer();
 
             SendRegisterClientListen sendregister = new SendRegisterClientListen() { _UserInfor = Logon._User };
+            SendOnlineMarkup sendonlinemarkup = new SendOnlineMarkup() { _UserInfor = Logon._User };
 
-            byte[] command = sendregister.GetProtocolCommand();
-
-            tcpclient.SendToEndDevice(command);
+            byte[] sendregistercommand = sendregister.GetProtocolCommand();
+            byte[] sendonlinecommand = sendonlinemarkup.GetProtocolCommand();
+            tcpclient.SendToEndDevice(sendregistercommand);
 
             //可接收是否发送成功
             while(true)
-            { 
+            {
                 tcpclient.Receive();
-                RecvChatContent chatcontent = new RecvChatContent();
-                tcpclient.Dispatcher(chatcontent);
 
-                Console.WriteLine("来源:{0},内容是：{1}", 
-                    chatcontent._Content._FromUID, 
-                    chatcontent._Content._Text);
+                switch (tcpclient.GetResolveType())
+                { 
+                    case TProtocol.RecvChatContent:
+                        RecvChatContent chatcontentcmd = new RecvChatContent();
+                        tcpclient.Dispatcher(chatcontentcmd);
+                        Console.WriteLine("来源:{0},内容是：{1}",
+                    chatcontentcmd._Content._FromUID,
+                    chatcontentcmd._Content._Text);
+
+                        break;
+                    case TProtocol.RecvOnlineMarkup:
+                        this.Send(sendonlinecommand);
+                        break;
+                }
+                
             }
             #endregion
         }

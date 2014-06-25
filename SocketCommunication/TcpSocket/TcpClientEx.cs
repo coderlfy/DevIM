@@ -106,11 +106,18 @@ namespace SocketCommunication.TcpSocket
 
             #endregion
         }
+        public TProtocol GetResolveType()
+        {
+            return (TProtocol)_fullrecvdata[1];
+        }
+
         public void Dispatcher(IClientCommand command)
         {
             //与实际接收到的_fullrecvdata信息做对比
             TcpClientDispatcher clientdispatcher = new TcpClientDispatcher(command);
+            //漏洞：_fullrecvdata有可能已经过滤了有效数据，两帧数据合并的现象
             List<byte> fullrecvdata = _fullrecvdata.ToList<byte>();
+
             fullrecvdata.RemoveAt(0);
             fullrecvdata.RemoveAt(0);
             fullrecvdata.RemoveAt(fullrecvdata.Count-1);
