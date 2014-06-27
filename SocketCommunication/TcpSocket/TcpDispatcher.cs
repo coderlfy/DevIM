@@ -17,7 +17,7 @@ namespace SocketCommunication.TcpSocket
         /// <summary>
         /// 公开接口进行批处理
         /// </summary>
-        public abstract void Run();
+        public abstract bool Run();
 
         /// <summary>
         /// 有一帧内有多条命令

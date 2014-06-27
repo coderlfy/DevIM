@@ -57,6 +57,7 @@ namespace DevIM
             MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
             dl_do.EndInvoke(result);
 
+            
             if(this.InvokeRequired)
             {
                 this.Invoke(new MethodInvoker(() => { 
@@ -66,6 +67,7 @@ namespace DevIM
                     _iconStatus.BindToWindow(mainwindow);
                 }));
             }
+            
             #endregion
         }
         private bool CheckFormatValid()
@@ -111,6 +113,7 @@ namespace DevIM
 
             _User.uid = (_User.userid == "00000") ? "1" : "2";
 
+            
             tcpclient.Close();
             #endregion
         }

@@ -45,7 +45,6 @@ namespace DevIM
         private void requestUserList()
         {
             #region
-
             TcpClientEx tcpclient = new TcpClientEx(
                 ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
@@ -70,8 +69,6 @@ namespace DevIM
             //Console.WriteLine(usercheckresult._Result._Message);
 
             tcpclient.Close();
-
-           
             
             #endregion
         }
@@ -85,11 +82,6 @@ namespace DevIM
             MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
             dl_do.EndInvoke(result);
 
-            //测试注册侦听
-            MethodInvoker gd = new MethodInvoker(() => {
-                (new ChatClient()).RegisterListen();
-            });
-            gd.BeginInvoke(null, null);
 
             if (this.InvokeRequired)
             {
@@ -110,6 +102,11 @@ namespace DevIM
                     }
                 }));
             }
+            //测试注册侦听
+            MethodInvoker gd = new MethodInvoker(() => {
+                (new ChatClient()).RegisterListen();
+            });
+            gd.BeginInvoke(null, null);
             #endregion
         }
         /// <summary>

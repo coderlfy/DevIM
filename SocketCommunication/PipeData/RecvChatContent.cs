@@ -16,7 +16,7 @@ namespace SocketCommunication.PipeData
             set { _content = value; }
         }
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             List<string> analysisinfor = base.Split(2);
 
@@ -26,6 +26,8 @@ namespace SocketCommunication.PipeData
                 this._Content._FromUID = int.Parse(analysisinfor[0]);
                 this._Content._Text = analysisinfor[1];
             }
+
+            return true;
         }
 
         public override List<byte> GetCommand()

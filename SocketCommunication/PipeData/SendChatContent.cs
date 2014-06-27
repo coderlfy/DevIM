@@ -17,7 +17,7 @@ namespace SocketCommunication.PipeData
             set { _content = value; }
         }
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             List<string> analysisinfor = base.Split(3);
 
@@ -38,6 +38,8 @@ namespace SocketCommunication.PipeData
                 foreach (Customer client in customers)
                     client._SrcSocket.Send(bytecmd);
             }
+
+            return true;
             //在数据库中验证用户合法性？？？
             /*
             RecvUserCheckResult cmd = new RecvUserCheckResult();

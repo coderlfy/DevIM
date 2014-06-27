@@ -7,7 +7,7 @@ namespace SocketCommunication.PipeData
 {
     class RecvFriendship : IClientCommand
     {
-        public override void Analysis()
+        public override bool Analysis()
         {
             throw new NotImplementedException();
         }

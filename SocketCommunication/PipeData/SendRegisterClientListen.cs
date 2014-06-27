@@ -17,7 +17,7 @@ namespace SocketCommunication.PipeData
             get { return _userInfor; }
             set { _userInfor = value; }
         }
-        public override void Analysis()
+        public override bool Analysis()
         {
 
             List<string> analysisinfor = base.Split(1);
@@ -33,6 +33,7 @@ namespace SocketCommunication.PipeData
             if (CustomerCollector.IsExist(customer)==null)
                 CustomerCollector.Add(customer);
 
+            return true;
         }
 
         public override List<byte> GetCommand()

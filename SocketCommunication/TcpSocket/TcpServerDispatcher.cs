@@ -23,7 +23,7 @@ namespace SocketCommunication.TcpSocket
         {
             this._clientSocket = clientSocket;
         }
-        public override void Run()
+        public override bool Run()
         {
             #region
             IServerCommand socketcommand = ProtocolRule.GetServerCommand(userData._SourceData);
@@ -33,7 +33,7 @@ namespace SocketCommunication.TcpSocket
             socketcommand._AfterDecodeData.RemoveAt(0);
             socketcommand._AfterDecodeData.RemoveAt(0);
             socketcommand._AfterDecodeData.RemoveAt(socketcommand._AfterDecodeData.Count - 1);
-            socketcommand.Analysis();
+            return socketcommand.Analysis();
 
             #endregion
         }

@@ -91,7 +91,7 @@ namespace SocketCommunication.PipeData
             #endregion
         }
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             #region
             List<string> analysisinfor = base.Split(3);
@@ -101,6 +101,8 @@ namespace SocketCommunication.PipeData
             //发送给
             base._SourceClient.SendFile(path);
             base._SourceClient.Close();
+
+            return false;
             #endregion
         }
 

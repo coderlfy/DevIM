@@ -10,7 +10,7 @@ namespace SocketCommunication.PipeData
 
 
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             throw new NotImplementedException();
         }

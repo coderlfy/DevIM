@@ -156,7 +156,7 @@ namespace SocketCommunication.TcpSocket
         /// </summary>
         /// <param name="endpoint"></param>
         /// <param name="cacheLength"></param>
-        private void dispatcher(Socket client, int cacheLength)
+        private bool dispatcher(Socket client, int cacheLength)
         {
             #region
             byte[] temp = new byte[cacheLength];
@@ -174,7 +174,7 @@ namespace SocketCommunication.TcpSocket
                 }
             };
             viewTempToConsole(tcpdispatcher);
-            tcpdispatcher.Run();
+            return tcpdispatcher.Run();
             #endregion
         }
 
@@ -212,8 +212,22 @@ namespace SocketCommunication.TcpSocket
             try
             {
                 Socket client = (Socket)iar.AsyncState;
+
                 int recvcount = client.EndReceive(iar);
-                this.dispatcher(client, recvcount);
+
+                if (recvcount>0)
+                {
+
+                    if (this.dispatcher(client, recvcount))
+                    {
+                        client.BeginReceive(_recvDataBuffer, 0,
+                        _recvDataBuffer.Length, SocketFlags.None,
+                                new AsyncCallback(receiveData), client);
+                    }
+                }
+
+                
+
             }
             catch (Exception e)
             {

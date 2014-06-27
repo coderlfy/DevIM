@@ -26,9 +26,9 @@ namespace SocketCommunication.TcpSocket
             
         }
 
-        public override void Run()
+        public override bool Run()
         {
-            _clientCommand.Analysis();
+            return _clientCommand.Analysis();
         }
 
         public void RunAll(List<byte> data)

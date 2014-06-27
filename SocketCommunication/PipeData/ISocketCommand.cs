@@ -19,7 +19,7 @@ namespace SocketCommunication.PipeData
         }
         
 
-        public abstract void Analysis();
+        public abstract bool Analysis();
 
         public abstract List<byte> GetCommand();
 

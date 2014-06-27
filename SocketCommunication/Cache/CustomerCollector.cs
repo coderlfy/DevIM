@@ -35,11 +35,14 @@ namespace SocketCommunication.Cache
         public static Customer IsExist(Customer customer)
         {
             #region
-            newCustomer = customer;
-            if (_Customers.Count > 0)
-                return _Customers.Find(existContent);
-            else
-                return null;
+            lock(customer)
+            { 
+                newCustomer = customer;
+                if (_Customers.Count > 0)
+                    return _Customers.Find(existContent);
+                else
+                    return null;
+            }
             #endregion
         }
 
@@ -105,6 +108,15 @@ namespace SocketCommunication.Cache
             return str.ToString();
         }
 
+        public static void UpdateUserTime(Customer customer)
+        {
+            lock (typeof(CustomerCollector))
+            { 
+                Customer findcustomer = CustomerCollector.IsExist(customer);
+                if (findcustomer != null)
+                    findcustomer._UpdateTime = DateTime.Now;
+            }
+        }
         
     }
 }

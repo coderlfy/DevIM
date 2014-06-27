@@ -62,7 +62,6 @@ namespace SocketCommunication.TcpSocket
                 {
                     string Str = System.Text.UTF8Encoding.UTF8.GetString(_RecvBytes, 0, k);
                     OnlineInf.Write(Str);
-                    OnlineInf.Flush();
                     k = _pipeStream.Read(_RecvBytes, 0, _RecvBytes.Length);
                 }
 
@@ -130,6 +129,7 @@ namespace SocketCommunication.TcpSocket
         {
             if (_clientSocket != null)
             {
+                _clientSocket.Client.Shutdown(SocketShutdown.Both);
                 _clientSocket.Close();
                 //_clientSocket.Dispose();
             }

@@ -11,11 +11,11 @@ namespace SocketCommunication.PipeData
         public EventHandler OnStartingDownload = null;
 
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             if (OnStartingDownload != null)
                 OnStartingDownload(this, null);
-
+            return true;
         }
 
         public override List<byte> GetCommand()

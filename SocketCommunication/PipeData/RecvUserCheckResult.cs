@@ -16,7 +16,7 @@ namespace SocketCommunication.PipeData
         }
 
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             #region
 
@@ -26,6 +26,8 @@ namespace SocketCommunication.PipeData
                 _Success = (analysisinfor[0].ToLower() == "true"),
                 _Message = analysisinfor[1]
             };
+
+            return true;
             #endregion
         }
 

@@ -7,9 +7,9 @@ namespace SocketCommunication.PipeData
 {
     public class RecvOnlineMarkup : IClientCommand
     {
-        public override void Analysis()
+        public override bool Analysis()
         {
-            
+            return true;
         }
 
         public override List<byte> GetCommand()

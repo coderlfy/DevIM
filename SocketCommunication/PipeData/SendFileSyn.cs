@@ -10,12 +10,12 @@ namespace SocketCommunication.PipeData
 
 
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             base._SourceClient.Send((new RecvFileAck())
                 .GetProtocolCommand());
 
-
+            return true;
         }
 
         public override List<byte> GetCommand()

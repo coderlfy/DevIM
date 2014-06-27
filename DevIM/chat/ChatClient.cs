@@ -108,7 +108,7 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
                         break;
                     case TProtocol.RecvOnlineMarkup:
-                        this.Send(sendonlinecommand);
+                        tcpclient.SendToEndDevice(sendonlinecommand);
                         break;
                 }
                 

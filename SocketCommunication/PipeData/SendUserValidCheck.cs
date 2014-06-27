@@ -29,7 +29,7 @@ namespace SocketCommunication.PipeData
             return businesscommand;
         }
 
-        public override void Analysis()
+        public override bool Analysis()
         {
             List<string> analysisinfor = base.Split(2);
             //在数据库中验证用户合法性？？？
@@ -41,7 +41,7 @@ namespace SocketCommunication.PipeData
             };
             Console.WriteLine("用户名：{0}", analysisinfor[0]);
             base._SourceClient.Send(cmd.GetProtocolCommand());
-
+            return true;
         }
     }
 }
