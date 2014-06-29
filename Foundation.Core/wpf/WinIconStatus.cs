@@ -21,7 +21,7 @@ namespace Fundation.Core
         /// <summary>
         /// 图标控件对象
         /// </summary>
-        private NotifyIcon _systemNotifyIcon = null;
+        public NotifyIcon _systemNotifyIcon = null;
         /// <summary>
         /// 图表资源名（嵌入类资源名）
         /// </summary>

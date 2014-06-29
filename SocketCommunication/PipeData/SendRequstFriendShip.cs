@@ -78,11 +78,14 @@ namespace SocketCommunication.PipeData
                     XmlElement friend = temp.CreateElement("friend");
                     XmlElement FriendNumber = temp.CreateElement("FriendNumber");
                     XmlElement FriendName = temp.CreateElement("FriendName");
+                    XmlElement friendid = temp.CreateElement("FriendId");
 
                     FriendName.InnerText = dr["friendFullname"].ToString().Trim();
                     FriendNumber.InnerText = dr["friendQQ"].ToString().Trim();
+                    friendid.InnerText = dr["friendId"].ToString().Trim();
                     friend.AppendChild(FriendNumber);
                     friend.AppendChild(FriendName);
+                    friend.AppendChild(friendid);
                     node.AppendChild(friend);
                     //break;
                 }

@@ -1,5 +1,6 @@
 ﻿using DevIM.chat;
 using DevIM.custom;
+using DevIM.icon;
 using DevIM.Model;
 using DevIM.Test;
 using DevIMDataLibrary;
@@ -20,6 +21,16 @@ namespace DevIM
 {
     public partial class UserMainWindow : Form
     {
+        private WinIconStatus _iconStatus;
+
+        public WinIconStatus _IconStatus
+        {
+            get { return _iconStatus; }
+            set { _iconStatus = value; }
+        }
+
+        private IconController _iconController = null;
+        
         public UserMainWindow()
         {
             InitializeComponent();
@@ -32,11 +43,14 @@ namespace DevIM
         private void UserMainWindow_Load(object sender, EventArgs e)
         {
             #region
+            IconCollector.Init();
+
             AsyncCallback callbak = new AsyncCallback(fillTreefriend);
             MethodInvoker gd = new MethodInvoker(requestUserList);
             //异步请求中传入callback方法控制变化UI的最终结果？
             //其实上述方法应该返回bool类型，以确定返回登录是否成功。
             gd.BeginInvoke(callbak, gd);
+
             #endregion
         }
         /// <summary>
@@ -102,9 +116,13 @@ namespace DevIM
                     }
                 }));
             }
+
+            _iconController = new IconController();
+            _iconController.Bind(_IconStatus);
+
             //测试注册侦听
             MethodInvoker gd = new MethodInvoker(() => {
-                (new ChatClient()).RegisterListen();
+                (new ChatClient()).RegisterListen(_iconController);
             });
             gd.BeginInvoke(null, null);
             #endregion
@@ -121,6 +139,7 @@ namespace DevIM
             {
                 TreeNode son = new TreeNode();
                 son.Text = father.ChildNodes[i].ChildNodes[1].InnerText + "(" + father.ChildNodes[i].ChildNodes[0].InnerText + ")";
+                son.Tag = father.ChildNodes[i].ChildNodes[2].InnerText;
                 //ShareDate.QQName.Add(father.ChildNodes[i].ChildNodes[1].InnerText);
                 //ShareDate.QQNumber.Add(father.ChildNodes[i].ChildNodes[0].InnerText);
                 //if (isThisUserOnline(father.ChildNodes[i].ChildNodes[0].InnerText))
@@ -137,6 +156,20 @@ namespace DevIM
             }
             #endregion
         }
+
+        private string[] getUserInfor(string nodetext)
+        {
+            string[] userinfor = new string[2];
+            int usernameindex = nodetext.IndexOf("(");
+            int noindex = nodetext.IndexOf(")");
+
+            userinfor[0] = nodetext.Substring(0, 
+                usernameindex);
+
+            userinfor[1] = nodetext.Substring(
+                usernameindex, noindex - usernameindex);
+            return userinfor;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -145,8 +178,38 @@ namespace DevIM
         private void tFriend_DoubleClick(object sender, EventArgs e)
         {
             #region
-            P2P p2pwindow = new P2P();
-            p2pwindow.Show();
+            object tag = this.tFriend.SelectedNode.Tag;
+            string[] userinfor = getUserInfor(this.tFriend.SelectedNode.Text);
+            if (tag != null)
+            {
+                EntityTUser user = new EntityTUser(){
+                    uid = tag.ToString(),
+                    userid = userinfor[1],
+                    userfullName = userinfor[0]
+                };
+                Friend newfriend = new Friend() { 
+                    _User = user
+                };
+
+                Friend findfriend = FriendCollector.FindFriend(newfriend);
+                if (findfriend != null)
+                {
+                    TrafficMsg.PostMessage(
+                        int.Parse(findfriend._FrmHandle.ToString()), 
+                        501, 0, 0);
+                }
+                else
+                {
+                    P2P p2pwindow = new P2P();
+                    newfriend._FrmHandle = p2pwindow.Handle;
+
+                    if (FriendCollector.Add(newfriend))
+                        p2pwindow._Friend = newfriend;
+
+                    p2pwindow.Show();
+                }
+
+            }
             #endregion
         }
 

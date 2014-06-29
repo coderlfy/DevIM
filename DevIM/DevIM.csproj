@@ -51,7 +51,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="chat\ChatClient.cs" />
+    <Compile Include="chat\ChatMessage.cs" />
+    <Compile Include="chat\Friend.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\FriendCollector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chat\TrafficMsg.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="custom\CustomConfig.cs" />
+    <Compile Include="icon\IconCollector.cs" />
+    <Compile Include="icon\IconController.cs" />
+    <Compile Include="icon\TIcon.cs" />
     <Compile Include="Logon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,9 +154,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="head\msg.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="head\default.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="head\grapes.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\category.png" />
-    <Content Include="images\male.png" />
     <Content Include="images\famale.png" />
+    <Content Include="images\male.png" />
+    <EmbeddedResource Include="head\jalape_o.ico" />
+    <EmbeddedResource Include="head\kiwi.ico" />
+    <Content Include="head\male.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

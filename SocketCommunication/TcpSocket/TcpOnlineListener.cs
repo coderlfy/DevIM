@@ -39,5 +39,7 @@ namespace SocketCommunication.TcpSocket
             _thdOnlineResolve.Start();
 
         }
+
+
     }
 }

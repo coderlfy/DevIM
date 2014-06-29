@@ -63,6 +63,7 @@ namespace DevIM
                 this.Invoke(new MethodInvoker(() => { 
                     this.Hide();
                     UserMainWindow mainwindow = new UserMainWindow();
+                    mainwindow._IconStatus = _iconStatus;
                     mainwindow.Show();
                     _iconStatus.BindToWindow(mainwindow);
                 }));

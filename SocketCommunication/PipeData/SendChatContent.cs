@@ -40,18 +40,6 @@ namespace SocketCommunication.PipeData
             }
 
             return true;
-            //在数据库中验证用户合法性？？？
-            /*
-            RecvUserCheckResult cmd = new RecvUserCheckResult();
-            cmd._Result = new MsgResultModel()
-            {
-                _Success = (analysisinfor[0] == "00000"),
-                _Message = (analysisinfor[0] == "00000") ? "通过！" : "验证失败！"
-            };
-            Console.WriteLine("用户名：{0}", analysisinfor[0]);
-             * */
-            //可返回确认中转收到命令
-            //base._SourceClient.Send(cmd.GetProtocolCommand());
         }
 
         public override List<byte> GetCommand()

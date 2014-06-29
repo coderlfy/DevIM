@@ -36,7 +36,7 @@ namespace SocketCommunication.PipeData
                 this._Content._FromUID,
                 //this._Content._ToUId,
                 this._Content._Text,
-                this._Content._FromSendoutTime.ToString("yyyyMMddHHmmss")
+                this._Content._FromSendoutTime.ToString("yyyy-MM-dd HH:mm:ss")
                 );
 
             List<byte> businesscommand = new List<byte>();

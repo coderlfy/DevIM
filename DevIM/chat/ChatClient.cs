@@ -1,4 +1,5 @@
-﻿using DevIM.Model;
+﻿using DevIM.icon;
+using DevIM.Model;
 using DevIMDataLibrary;
 using SocketCommunication.PipeData;
 using SocketCommunication.TcpSocket;
@@ -9,21 +10,9 @@ using System.Text;
 
 namespace DevIM.chat
 {
-    class ReceiveEventArgs : EventArgs
-    {
-        private List<ChatContent> _contents;
-
-        public List<ChatContent> _Contents
-        {
-            get { return _contents; }
-            set { _contents = value; }
-        }
-        
-
-    }
     class ChatClient
     {
-        public event EventHandler<ReceiveEventArgs> OnReceive = null;
+        //public event EventHandler<ReceiveEventArgs> OnReceive = null;
         public static TcpClientEx ConnectServer()
         {
             #region
@@ -69,20 +58,13 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
 
             #endregion
         }
-        public void Send(byte[] data)
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RegisterListen(IconController iconController)
         {
             #region
-            TcpClientEx tcpclient = ChatClient.ConnectServer();
 
-            tcpclient.SendToEndDevice(data);
-
-            tcpclient.Close();
-
-            #endregion
-        }
-        public void RegisterListen()
-        {
-            #region
             TcpClientEx tcpclient = ChatClient.ConnectServer();
 
             SendRegisterClientListen sendregister = new SendRegisterClientListen() { _UserInfor = Logon._User };
@@ -106,6 +88,22 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
                     chatcontentcmd._Content._FromUID,
                     chatcontentcmd._Content._Text);
 
+                        Friend friend = new Friend() { _User = new EntityTUser() { uid = chatcontentcmd._Content._FromUID.ToString() } };
+                        Friend findfriend = FriendCollector.FindFriend(friend);
+                        if (findfriend != null)
+                        {
+                            int timestartindex = chatcontentcmd._Content._Text.Length - 19;
+                            string dt = chatcontentcmd._Content._Text.Substring(timestartindex, 19);
+                            findfriend._RecvMsgTime = DateTime.Parse(dt);
+                            findfriend._Message = chatcontentcmd._Content._Text.Substring(0, timestartindex);
+                            TrafficMsg.PostMessage(int.Parse(findfriend._FrmHandle.ToString()), 500, 0, 0);
+                        }
+                        else
+                        {
+                            iconController.StartFlash();
+
+                        }
+                            
                         break;
                     case TProtocol.RecvOnlineMarkup:
                         tcpclient.SendToEndDevice(sendonlinecommand);
