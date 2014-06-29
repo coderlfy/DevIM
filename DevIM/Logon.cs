@@ -114,7 +114,7 @@ namespace DevIM
 
             _User.uid = (_User.userid == "00000") ? "1" : "2";
 
-            
+            _iconStatus._systemNotifyIcon.Text += "\r\nNO：" + _User.userid;
             tcpclient.Close();
             #endregion
         }
@@ -131,6 +131,9 @@ namespace DevIM
             //封装？
             this.tbServerIP.Text = ServerInfor._Ip.ToString();
             this.tbServerPort.Text = ServerInfor._Port.ToString();
+
+            //DevIM.icon.IconCollector.Init();
+            //(new DevIM.icon.IconController()).Bind(_iconStatus);
             #endregion
         }
 

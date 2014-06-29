@@ -30,7 +30,7 @@ namespace DevIM
         }
 
         private IconController _iconController = null;
-        
+        public static int _FrmHandle = 0;
         public UserMainWindow()
         {
             InitializeComponent();
@@ -45,6 +45,11 @@ namespace DevIM
             #region
             IconCollector.Init();
 
+            _iconController = new IconController();
+            _iconController.Bind(_IconStatus);
+            _iconController._IconStatus.OnFlashEventHandler += new EventHandler(IconStatus_OnFlash);
+
+            _FrmHandle = this.Handle.ToInt32();
             AsyncCallback callbak = new AsyncCallback(fillTreefriend);
             MethodInvoker gd = new MethodInvoker(requestUserList);
             //异步请求中传入callback方法控制变化UI的最终结果？
@@ -52,6 +57,24 @@ namespace DevIM
             gd.BeginInvoke(callbak, gd);
 
             #endregion
+        }
+
+        private void IconStatus_OnFlash(object sender, EventArgs e)
+        {
+            Console.WriteLine("正在处理未弹出的聊天信息！");
+            foreach(Friend friend in FriendCollector._Friends)
+            {
+                if (friend._MessageMode == MessageMode.None)
+                {
+                    P2P p2pwindow = new P2P();
+                    p2pwindow._Friend = friend;
+                    p2pwindow._Friend._FrmHandle = p2pwindow.Handle;
+                    p2pwindow.Show();
+
+                }
+            }
+            _iconController.Reset();
+            _iconController._IconStatus.SetIconStatusMode(IconStatusMode.Normal);
         }
         /// <summary>
         /// 
@@ -117,9 +140,8 @@ namespace DevIM
                 }));
             }
 
-            _iconController = new IconController();
-            _iconController.Bind(_IconStatus);
 
+            
             //测试注册侦听
             MethodInvoker gd = new MethodInvoker(() => {
                 (new ChatClient()).RegisterListen(_iconController);
@@ -156,9 +178,14 @@ namespace DevIM
             }
             #endregion
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nodetext"></param>
+        /// <returns></returns>
         private string[] getUserInfor(string nodetext)
         {
+            #region
             string[] userinfor = new string[2];
             int usernameindex = nodetext.IndexOf("(");
             int noindex = nodetext.IndexOf(")");
@@ -169,6 +196,7 @@ namespace DevIM
             userinfor[1] = nodetext.Substring(
                 usernameindex, noindex - usernameindex);
             return userinfor;
+            #endregion
         }
         /// <summary>
         /// 
@@ -188,7 +216,8 @@ namespace DevIM
                     userfullName = userinfor[0]
                 };
                 Friend newfriend = new Friend() { 
-                    _User = user
+                    _User = user,
+                    _Messages = new List<ChatMessage>()
                 };
 
                 Friend findfriend = FriendCollector.FindFriend(newfriend);
@@ -204,7 +233,10 @@ namespace DevIM
                     newfriend._FrmHandle = p2pwindow.Handle;
 
                     if (FriendCollector.Add(newfriend))
+                    { 
                         p2pwindow._Friend = newfriend;
+                        p2pwindow._Friend._MessageMode = MessageMode.HasPop;
+                    }
 
                     p2pwindow.Show();
                 }
@@ -212,7 +244,27 @@ namespace DevIM
             }
             #endregion
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        {
+            #region
+            switch (m.Msg)
+            {
+                case 500://播放声音
+                    //PlaySound.play(m.WParam.ToInt32());
+                    break;
+                case 501://闪烁图标
+                    _iconController.StartFlash();
+                    break;
+                default:
+                    base.DefWndProc(ref m);
+                    break;
+            }
+            #endregion
+        }
 
     }
 }

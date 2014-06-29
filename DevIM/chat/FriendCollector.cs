@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DevIM.chat
 {
+
     class FriendCollector
     {
         public static List<Friend> _Friends = 

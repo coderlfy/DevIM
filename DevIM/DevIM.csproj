@@ -58,6 +58,7 @@
     <Compile Include="chat\FriendCollector.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="chat\MessageMode.cs" />
     <Compile Include="chat\TrafficMsg.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -166,8 +167,12 @@
     <Content Include="images\category.png" />
     <Content Include="images\famale.png" />
     <Content Include="images\male.png" />
-    <EmbeddedResource Include="head\jalape_o.ico" />
-    <EmbeddedResource Include="head\kiwi.ico" />
+    <Content Include="head\jalape_o.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="head\kiwi.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="head\male.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

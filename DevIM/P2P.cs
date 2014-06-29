@@ -56,11 +56,12 @@ namespace DevIM
                     string MsgToAdd;
                     //MsgToAdd = ShareDate.Msg[m.WParam.ToInt32()].ToString();
                     //AddMsg(MsgToAdd);
-
-                    this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
-                        _Friend._User.userfullName, 
-                        _Friend._Message, 
-                        _Friend._RecvMsgTime));
+                    foreach (ChatMessage msg in _Friend._Messages)
+                        this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
+                            _Friend._User.userfullName, 
+                            msg._Content,
+                            msg._RecvTime));
+                    _Friend._Messages.Clear();
                     break;
                 case 501://将本窗体激活
                     this.Activate();
@@ -93,6 +94,17 @@ namespace DevIM
             #region
             this.Text = string.Format("与{0}({1})聊天中……", 
                 this._Friend._User.userfullName, this._Friend._User.userid);
+
+            if (this._Friend._MessageMode == MessageMode.None)
+            { 
+                foreach (ChatMessage msg in _Friend._Messages)
+                    this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
+                        _Friend._User.userfullName,
+                        msg._Content,
+                        msg._RecvTime));
+                _Friend._Messages.Clear();
+                this._Friend._MessageMode = MessageMode.HasPop;
+            }
             #endregion
         }
     }

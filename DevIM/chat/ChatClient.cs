@@ -88,20 +88,42 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
                     chatcontentcmd._Content._FromUID,
                     chatcontentcmd._Content._Text);
 
-                        Friend friend = new Friend() { _User = new EntityTUser() { uid = chatcontentcmd._Content._FromUID.ToString() } };
+                        Friend friend = new Friend() { 
+                            _User = new EntityTUser() { 
+                                uid = chatcontentcmd._Content._FromUID.ToString() 
+                            } 
+                        };
+
+                        int timestartindex = chatcontentcmd._Content._Text.Length - 19;
+                        string dt = chatcontentcmd._Content._Text.Substring(timestartindex, 19);
+
+                        ChatMessage message = new ChatMessage() {
+                            _Content = chatcontentcmd._Content._Text.Substring(0, timestartindex),
+                            _RecvTime = DateTime.Parse(dt)
+                        };
+
                         Friend findfriend = FriendCollector.FindFriend(friend);
                         if (findfriend != null)
                         {
-                            int timestartindex = chatcontentcmd._Content._Text.Length - 19;
-                            string dt = chatcontentcmd._Content._Text.Substring(timestartindex, 19);
-                            findfriend._RecvMsgTime = DateTime.Parse(dt);
-                            findfriend._Message = chatcontentcmd._Content._Text.Substring(0, timestartindex);
-                            TrafficMsg.PostMessage(int.Parse(findfriend._FrmHandle.ToString()), 500, 0, 0);
+                            if (findfriend._MessageMode == MessageMode.HasPop)
+                            {
+                                findfriend._Messages.Add(message);
+                                TrafficMsg.PostMessage(int.Parse(findfriend._FrmHandle.ToString()), 500, 0, 0);
+                            }
+                            else
+                                addMessageToFriend(findfriend, message);
                         }
                         else
                         {
-                            iconController.StartFlash();
 
+                            friend._User.userfullName = "得建立缓存";
+                            friend._User.userid = "000000000";
+                            friend._Messages = new List<ChatMessage>();
+                            friend._MessageMode = MessageMode.None;
+                            friend._Messages.Add(message);
+
+                            FriendCollector.Add(friend);
+                            TrafficMsg.PostMessage(int.Parse(UserMainWindow._FrmHandle.ToString()), 501, 0, 0);
                         }
                             
                         break;
@@ -111,6 +133,14 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
                 }
                 
             }
+            #endregion
+        }
+        private void addMessageToFriend(Friend findfriend, ChatMessage message)
+        {
+            #region
+            findfriend._MessageMode = MessageMode.None;
+            findfriend._Messages.Add(message);
+            TrafficMsg.PostMessage(int.Parse(UserMainWindow._FrmHandle.ToString()), 501, 0, 0);
             #endregion
         }
     }

@@ -16,6 +16,11 @@ using System.Windows.Forms;
 
 namespace Fundation.Core
 {
+    public enum IconStatusMode
+    { 
+        Normal,
+        Flash
+    }
     public class WinIconStatus
     {
         /// <summary>
@@ -39,6 +44,9 @@ namespace Fundation.Core
         /// </summary>
         private FormWindowState _LastFrmState = FormWindowState.Maximized;
 
+        private IconStatusMode _iconStatusMode = IconStatusMode.Normal;
+
+        public EventHandler OnFlashEventHandler = null;
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -50,6 +58,14 @@ namespace Fundation.Core
 
             this._icoResourceName = resourceName;
             #endregion
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mode"></param>
+        public void SetIconStatusMode(IconStatusMode mode)
+        {
+            this._iconStatusMode = mode;
         }
 
         /// <summary>
@@ -88,17 +104,25 @@ namespace Fundation.Core
             , System.EventArgs e)
         {
             #region
-            if (this._mainFrm.Visible)
+            if (_iconStatusMode == IconStatusMode.Normal)
             {
-                _LastFrmState = this._mainFrm.WindowState;
-                this._mainFrm.Hide();
+                if (this._mainFrm.Visible)
+                {
+                    _LastFrmState = this._mainFrm.WindowState;
+                    this._mainFrm.Hide();
+                }
+                else
+                {
+                    this._mainFrm.Show();
+
+                    this._mainFrm.WindowState = _LastFrmState;
+                    this._mainFrm.Activate();
+                }
             }
             else
             {
-                this._mainFrm.Show();
-
-                this._mainFrm.WindowState = _LastFrmState;
-                this._mainFrm.Activate();
+                if (OnFlashEventHandler != null)
+                    OnFlashEventHandler(null, null);
             }
             #endregion
         }

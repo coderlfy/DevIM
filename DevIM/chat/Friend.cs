@@ -24,22 +24,21 @@ namespace DevIM.chat
             set { _frmHandle = value; }
         }
 
-        private string _message;
+        private List<ChatMessage> _messages;
 
-        public string _Message
+        public List<ChatMessage> _Messages
         {
-            get { return _message; }
-            set { _message = value; }
+            get { return _messages; }
+            set { _messages = value; }
         }
 
-        private DateTime _recvMsgTime;
+        private MessageMode _messageMode = MessageMode.None;
 
-        public DateTime _RecvMsgTime
+        public MessageMode _MessageMode
         {
-            get { return _recvMsgTime; }
-            set { _recvMsgTime = value; }
+            get { return _messageMode; }
+            set { _messageMode = value; }
         }
-        
         
     }
 }
