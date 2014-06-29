@@ -28,7 +28,7 @@ namespace DevIM
             get { return _iconStatus; }
             set { _iconStatus = value; }
         }
-
+        public static List<EntityTUser> _AllFriends = null;
         private IconController _iconController = null;
         public static int _FrmHandle = 0;
         public UserMainWindow()
@@ -43,6 +43,8 @@ namespace DevIM
         private void UserMainWindow_Load(object sender, EventArgs e)
         {
             #region
+            _AllFriends = new List<EntityTUser>();
+
             IconCollector.Init();
 
             _iconController = new IconController();
@@ -61,7 +63,6 @@ namespace DevIM
 
         private void IconStatus_OnFlash(object sender, EventArgs e)
         {
-            Console.WriteLine("正在处理未弹出的聊天信息！");
             foreach(Friend friend in FriendCollector._Friends)
             {
                 if (friend._MessageMode == MessageMode.None)
@@ -159,9 +160,18 @@ namespace DevIM
             #region
             for (int i = 0; i < father.ChildNodes.Count; i++)
             {
+                EntityTUser frienduser = new EntityTUser()
+                {
+                    uid = father.ChildNodes[i].ChildNodes[2].InnerText,
+                    userid = father.ChildNodes[i].ChildNodes[0].InnerText,
+                    userfullName = father.ChildNodes[i].ChildNodes[1].InnerText
+                };
+
                 TreeNode son = new TreeNode();
-                son.Text = father.ChildNodes[i].ChildNodes[1].InnerText + "(" + father.ChildNodes[i].ChildNodes[0].InnerText + ")";
-                son.Tag = father.ChildNodes[i].ChildNodes[2].InnerText;
+                son.Text = frienduser.userfullName + "(" + frienduser.userid + ")";
+                son.Tag = frienduser.uid;
+
+                _AllFriends.Add(frienduser);
                 //ShareDate.QQName.Add(father.ChildNodes[i].ChildNodes[1].InnerText);
                 //ShareDate.QQNumber.Add(father.ChildNodes[i].ChildNodes[0].InnerText);
                 //if (isThisUserOnline(father.ChildNodes[i].ChildNodes[0].InnerText))
@@ -174,10 +184,19 @@ namespace DevIM
                     son.ImageIndex = 0;
                     son.SelectedImageIndex = 0;
                 //}
+                
                 this.tFriend.Nodes[fatherId].Nodes.Add(son);
             }
             #endregion
         }
+        public static EntityTUser GetFriendUser(string uid)
+        {
+            foreach (EntityTUser user in _AllFriends)
+                if (user.uid == uid)
+                    return user;
+            return null;
+        }
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -198,6 +217,7 @@ namespace DevIM
             return userinfor;
             #endregion
         }
+         * */
         /// <summary>
         /// 
         /// </summary>
@@ -207,15 +227,12 @@ namespace DevIM
         {
             #region
             object tag = this.tFriend.SelectedNode.Tag;
-            string[] userinfor = getUserInfor(this.tFriend.SelectedNode.Text);
             if (tag != null)
             {
-                EntityTUser user = new EntityTUser(){
-                    uid = tag.ToString(),
-                    userid = userinfor[1],
-                    userfullName = userinfor[0]
-                };
-                Friend newfriend = new Friend() { 
+                EntityTUser user = GetFriendUser(tag.ToString());
+
+                Friend newfriend = new Friend()
+                {
                     _User = user,
                     _Messages = new List<ChatMessage>()
                 };
@@ -223,9 +240,29 @@ namespace DevIM
                 Friend findfriend = FriendCollector.FindFriend(newfriend);
                 if (findfriend != null)
                 {
-                    TrafficMsg.PostMessage(
-                        int.Parse(findfriend._FrmHandle.ToString()), 
-                        501, 0, 0);
+                    if (findfriend._MessageMode == MessageMode.HasPop)
+                    {
+                        TrafficMsg.PostMessage(
+                            int.Parse(findfriend._FrmHandle.ToString()),
+                            501, 0, 0);
+                    }
+                    else
+                    {
+                        int nonepopcount = 0;
+                        foreach (Friend friend in FriendCollector._Friends)
+                        {
+                            if (friend._MessageMode == MessageMode.None)
+                                nonepopcount++;
+                        }
+                        if (nonepopcount == 1)
+                            this._iconController.Reset();
+
+                        P2P p2pwindow = new P2P();
+                        p2pwindow._Friend = findfriend;
+                        p2pwindow._Friend._FrmHandle = p2pwindow.Handle;
+                        p2pwindow.Show();
+
+                    }
                 }
                 else
                 {
@@ -233,7 +270,7 @@ namespace DevIM
                     newfriend._FrmHandle = p2pwindow.Handle;
 
                     if (FriendCollector.Add(newfriend))
-                    { 
+                    {
                         p2pwindow._Friend = newfriend;
                         p2pwindow._Friend._MessageMode = MessageMode.HasPop;
                     }

@@ -116,8 +116,7 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
                         else
                         {
 
-                            friend._User.userfullName = "得建立缓存";
-                            friend._User.userid = "000000000";
+                            friend._User = UserMainWindow.GetFriendUser(friend._User.uid);
                             friend._Messages = new List<ChatMessage>();
                             friend._MessageMode = MessageMode.None;
                             friend._Messages.Add(message);
