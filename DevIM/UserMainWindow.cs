@@ -40,7 +40,8 @@ namespace DevIM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UserMainWindow_Load(object sender, EventArgs e)
+        private void UserMainWindow_Load(
+            object sender, EventArgs e)
         {
             #region
             _AllFriends = new List<EntityTUser>();
@@ -61,9 +62,11 @@ namespace DevIM
             #endregion
         }
 
-        private void IconStatus_OnFlash(object sender, EventArgs e)
+        private void IconStatus_OnFlash(
+            object sender, EventArgs e)
         {
-            foreach(Friend friend in FriendCollector._Friends)
+            #region
+            foreach (Friend friend in FriendCollector._Friends)
             {
                 if (friend._MessageMode == MessageMode.None)
                 {
@@ -76,6 +79,7 @@ namespace DevIM
             }
             _iconController.Reset();
             _iconController._IconStatus.SetIconStatusMode(IconStatusMode.Normal);
+            #endregion
         }
         /// <summary>
         /// 
@@ -114,35 +118,34 @@ namespace DevIM
         /// 
         /// </summary>
         /// <param name="result"></param>
-        private void fillTreefriend(IAsyncResult result)
+        private void fillTreefriend(
+            IAsyncResult result)
         {
             #region
             MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
             dl_do.EndInvoke(result);
 
 
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(() => {
-                    this.tFriend.Nodes.Clear();
-                    XmlDataDocument Xmldate = new XmlDataDocument();
-                    Xmldate.Load("online.dat");
-                    XmlNode root = Xmldate.DocumentElement;
-                    for (int i = 0; i < root.ChildNodes.Count; i++)
-                    {
-                        XmlNode group = root.ChildNodes[i];
-                        System.Windows.Forms.TreeNode father = new System.Windows.Forms.TreeNode();
-                        father.Text = group.Attributes[GroupData.groupName].Value;
-                        father.ImageIndex = 2;
-                        father.SelectedImageIndex = 2;
-                        this.tFriend.Nodes.Add(father);
-                        fillFriendsChild(i, group);
-                    }
-                }));
-            }
+            if (!this.InvokeRequired)
+                return;
 
+            this.Invoke(new MethodInvoker(() => {
+                this.tFriend.Nodes.Clear();
+                XmlDataDocument Xmldate = new XmlDataDocument();
+                Xmldate.Load("online.dat");
+                XmlNode root = Xmldate.DocumentElement;
+                for (int i = 0; i < root.ChildNodes.Count; i++)
+                {
+                    XmlNode group = root.ChildNodes[i];
+                    System.Windows.Forms.TreeNode father = new System.Windows.Forms.TreeNode();
+                    father.Text = group.Attributes[GroupData.groupName].Value;
+                    father.ImageIndex = 2;
+                    father.SelectedImageIndex = 2;
+                    this.tFriend.Nodes.Add(father);
+                    fillFriendsChild(i, group);
+                }
+            }));
 
-            
             //测试注册侦听
             MethodInvoker gd = new MethodInvoker(() => {
                 (new ChatClient()).RegisterListen(_iconController);
@@ -155,7 +158,8 @@ namespace DevIM
         /// </summary>
         /// <param name="fatherId"></param>
         /// <param name="father"></param>
-        private void fillFriendsChild(int fatherId, XmlNode father)
+        private void fillFriendsChild(
+            int fatherId, XmlNode father)
         {
             #region
             for (int i = 0; i < father.ChildNodes.Count; i++)
@@ -189,94 +193,47 @@ namespace DevIM
             }
             #endregion
         }
-        public static EntityTUser GetFriendUser(string uid)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static EntityTUser GetFriendUser(
+            string uid)
         {
+            #region
             foreach (EntityTUser user in _AllFriends)
                 if (user.uid == uid)
                     return user;
             return null;
-        }
-        /*
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nodetext"></param>
-        /// <returns></returns>
-        private string[] getUserInfor(string nodetext)
-        {
-            #region
-            string[] userinfor = new string[2];
-            int usernameindex = nodetext.IndexOf("(");
-            int noindex = nodetext.IndexOf(")");
-
-            userinfor[0] = nodetext.Substring(0, 
-                usernameindex);
-
-            userinfor[1] = nodetext.Substring(
-                usernameindex, noindex - usernameindex);
-            return userinfor;
             #endregion
         }
-         * */
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tFriend_DoubleClick(object sender, EventArgs e)
+        private void tFriend_DoubleClick(
+            object sender, EventArgs e)
         {
             #region
             object tag = this.tFriend.SelectedNode.Tag;
             if (tag != null)
             {
-                EntityTUser user = GetFriendUser(tag.ToString());
+                Friend currentfriend = getCurrentNodeFriend(tag.ToString());
 
-                Friend newfriend = new Friend()
-                {
-                    _User = user,
-                    _Messages = new List<ChatMessage>()
-                };
-
-                Friend findfriend = FriendCollector.FindFriend(newfriend);
+                Friend findfriend = FriendCollector.FindFriend(currentfriend);
                 if (findfriend != null)
                 {
                     if (findfriend._MessageMode == MessageMode.HasPop)
-                    {
                         TrafficMsg.PostMessage(
                             int.Parse(findfriend._FrmHandle.ToString()),
                             501, 0, 0);
-                    }
                     else
-                    {
-                        int nonepopcount = 0;
-                        foreach (Friend friend in FriendCollector._Friends)
-                        {
-                            if (friend._MessageMode == MessageMode.None)
-                                nonepopcount++;
-                        }
-                        if (nonepopcount == 1)
-                            this._iconController.Reset();
-
-                        P2P p2pwindow = new P2P();
-                        p2pwindow._Friend = findfriend;
-                        p2pwindow._Friend._FrmHandle = p2pwindow.Handle;
-                        p2pwindow.Show();
-
-                    }
+                        this.hasNoneFormAndInCache(findfriend);
                 }
                 else
-                {
-                    P2P p2pwindow = new P2P();
-                    newfriend._FrmHandle = p2pwindow.Handle;
-
-                    if (FriendCollector.Add(newfriend))
-                    {
-                        p2pwindow._Friend = newfriend;
-                        p2pwindow._Friend._MessageMode = MessageMode.HasPop;
-                    }
-
-                    p2pwindow.Show();
-                }
+                    this.hasNoneFormAndNotCache(currentfriend);
 
             }
             #endregion
@@ -284,8 +241,71 @@ namespace DevIM
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        private Friend getCurrentNodeFriend(
+            string uid)
+        {
+            #region
+            EntityTUser user = GetFriendUser(uid);
+
+            Friend newfriend = new Friend()
+            {
+                _User = user,
+                _Messages = new List<ChatMessage>()
+            };
+            return newfriend;
+            #endregion
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="findFriend"></param>
+        private void hasNoneFormAndInCache(
+            Friend findFriend)
+        {
+            #region
+            int nonepopcount = 0;
+            foreach (Friend friend in FriendCollector._Friends)
+            {
+                if (friend._MessageMode == MessageMode.None)
+                    nonepopcount++;
+            }
+            if (nonepopcount == 1)
+                this._iconController.Reset();
+
+            P2P p2pwindow = new P2P();
+            p2pwindow._Friend = findFriend;
+            p2pwindow._Friend._FrmHandle = p2pwindow.Handle;
+            p2pwindow.Show();
+            #endregion
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newFriend"></param>
+        private void hasNoneFormAndNotCache(
+            Friend newFriend)
+        {
+            #region
+            P2P p2pwindow = new P2P();
+            newFriend._FrmHandle = p2pwindow.Handle;
+
+            if (FriendCollector.Add(newFriend))
+            {
+                p2pwindow._Friend = newFriend;
+                p2pwindow._Friend._MessageMode = MessageMode.HasPop;
+            }
+
+            p2pwindow.Show();
+            #endregion
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="m"></param>
-        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        protected override void DefWndProc(
+            ref System.Windows.Forms.Message m)
         {
             #region
             switch (m.Msg)

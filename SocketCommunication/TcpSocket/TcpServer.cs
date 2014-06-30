@@ -209,13 +209,14 @@ namespace SocketCommunication.TcpSocket
         private void receiveData(IAsyncResult iar)
         {
             #region
+            Socket client = null;
             try
             {
-                Socket client = (Socket)iar.AsyncState;
+                client = (Socket)iar.AsyncState;
 
                 int recvcount = client.EndReceive(iar);
 
-                if (recvcount>0)
+                if (recvcount > 0)
                 {
 
                     if (this.dispatcher(client, recvcount))
@@ -225,9 +226,11 @@ namespace SocketCommunication.TcpSocket
                                 new AsyncCallback(receiveData), client);
                     }
                 }
-
-                
-
+            }
+            catch (SocketException e)
+            {
+                CustomerCollector.Remove(client);
+                this.writeError(e);
             }
             catch (Exception e)
             {

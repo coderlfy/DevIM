@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 
 namespace SocketCommunication.Cache
@@ -84,7 +85,25 @@ namespace SocketCommunication.Cache
             }
             #endregion
         }
-
+        public static void Remove(Socket customerSocket)
+        {
+            #region
+            System.Net.IPEndPoint endremotepoint = (System.Net.IPEndPoint)customerSocket.RemoteEndPoint;
+            string ipaddress = "";
+            int port = -1;
+            ipaddress = endremotepoint.Address.ToString();
+            port = endremotepoint.Port;
+            foreach (Customer temp in _customers)
+            {
+                if (temp.IPAddress == ipaddress &&
+                    temp.Port == port)
+                {
+                    _customers.Remove(temp);
+                    break;
+                }
+            }
+            #endregion
+        }
         public static void ViewToConsole()
         {
             Console.Write(ToString());

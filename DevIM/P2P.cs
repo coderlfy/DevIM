@@ -39,9 +39,16 @@ namespace DevIM
             client.Send(content, int.Parse(destuid));
             this.tbSendContent.Clear();
 
-            this.rtbHistory.AppendText(string.Format("To:{0}--{1}\r\n{2}\r\n", this._Friend._User.userfullName, content, DateTime.Now));
+            this.rtbHistory.AppendText(string.Format(
+                "To:{0}--{1}\r\n{2}\r\n", 
+                this._Friend._User.userfullName, 
+                content, 
+                DateTime.Now));
             #endregion
         }
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool FlashWindow( IntPtr hWnd, bool bInvert );
+
         /// <summary>
         /// 
         /// </summary>
@@ -53,15 +60,8 @@ namespace DevIM
             switch (m.Msg)
             {
                 case 500://向窗体中添加消息
-                    string MsgToAdd;
-                    //MsgToAdd = ShareDate.Msg[m.WParam.ToInt32()].ToString();
-                    //AddMsg(MsgToAdd);
-                    foreach (ChatMessage msg in _Friend._Messages)
-                        this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
-                            _Friend._User.userfullName, 
-                            msg._Content,
-                            msg._RecvTime));
-                    _Friend._Messages.Clear();
+                    viewFromMessages();
+                    FlashWindow(this.Handle, true);
                     break;
                 case 501://将本窗体激活
                     this.Activate();
@@ -93,18 +93,29 @@ namespace DevIM
         {
             #region
             this.Text = string.Format("与{0}({1})聊天中……", 
-                this._Friend._User.userfullName, this._Friend._User.userid);
+                this._Friend._User.userfullName, 
+                this._Friend._User.userid);
 
             if (this._Friend._MessageMode == MessageMode.None)
-            { 
-                foreach (ChatMessage msg in _Friend._Messages)
-                    this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
-                        _Friend._User.userfullName,
-                        msg._Content,
-                        msg._RecvTime));
-                _Friend._Messages.Clear();
+            {
+                viewFromMessages();
                 this._Friend._MessageMode = MessageMode.HasPop;
             }
+            this.tbSendContent.Focus();
+            #endregion
+        }
+        /// <summary>
+        /// 显示别人发来的信息
+        /// </summary>
+        private void viewFromMessages()
+        {
+            #region
+            foreach (ChatMessage msg in _Friend._Messages)
+                this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
+                    _Friend._User.userfullName,
+                    msg._Content,
+                    msg._RecvTime));
+            _Friend._Messages.Clear();
             #endregion
         }
     }

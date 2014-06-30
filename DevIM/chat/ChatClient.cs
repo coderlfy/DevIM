@@ -84,9 +84,6 @@ ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
                     case TProtocol.RecvChatContent:
                         RecvChatContent chatcontentcmd = new RecvChatContent();
                         tcpclient.Dispatcher(chatcontentcmd);
-                        Console.WriteLine("来源:{0},内容是：{1}",
-                    chatcontentcmd._Content._FromUID,
-                    chatcontentcmd._Content._Text);
 
                         Friend friend = new Friend() { 
                             _User = new EntityTUser() { 
