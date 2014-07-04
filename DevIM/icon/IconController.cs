@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DevIM.icon
 {
-    class IconController
+    public class IconController
     {
         public Timer _StatusIconTimer = null;
         private bool _currentIconVisible = true;

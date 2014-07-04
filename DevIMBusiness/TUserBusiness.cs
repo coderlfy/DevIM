@@ -186,7 +186,15 @@ namespace DevIMBusiness
             return tuserdata;
             #endregion
         }
-
+        public TUserData GetUserCheck(string userid, string userPwd)
+        {
+            DBConditions querybusinessparams = new DBConditions();
+            TUserData tuserdata = new TUserData();
+            querybusinessparams.Add(TUserData.userid, EnumSqlType.nvarchar, EnumCondition.Equal, userid);
+            querybusinessparams.Add(TUserData.userpwd, EnumSqlType.nvarchar, EnumCondition.Equal, userPwd);
+            this._tuserclass.GetSingleTAllWithoutCount(tuserdata, querybusinessparams);
+            return tuserdata;
+        }
     }
 }
 

@@ -2,7 +2,6 @@
 using DevIM.custom;
 using DevIM.icon;
 using DevIM.Model;
-using DevIM.Test;
 using DevIMDataLibrary;
 using Fundation.Core;
 using SocketCommunication.PipeData;
@@ -21,15 +20,17 @@ namespace DevIM
 {
     public partial class UserMainWindow : Form
     {
-        private WinIconStatus _iconStatus;
 
-        public WinIconStatus _IconStatus
-        {
-            get { return _iconStatus; }
-            set { _iconStatus = value; }
-        }
         public static List<EntityTUser> _AllFriends = null;
-        private IconController _iconController = null;
+
+        private IconController _iconController;
+
+        public IconController _IconController
+        {
+            get { return _iconController; }
+            set { _iconController = value; }
+        }
+        
         public static int _FrmHandle = 0;
         public UserMainWindow()
         {
@@ -48,11 +49,12 @@ namespace DevIM
 
             IconCollector.Init();
 
-            _iconController = new IconController();
-            _iconController.Bind(_IconStatus);
             _iconController._IconStatus.OnFlashEventHandler += new EventHandler(IconStatus_OnFlash);
 
             _FrmHandle = this.Handle.ToInt32();
+
+            this.Text = string.Format(this.Text, Logon._User.userfullName);
+
             AsyncCallback callbak = new AsyncCallback(fillTreefriend);
             MethodInvoker gd = new MethodInvoker(requestUserList);
             //异步请求中传入callback方法控制变化UI的最终结果？

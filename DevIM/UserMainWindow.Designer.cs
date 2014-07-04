@@ -66,7 +66,7 @@
             this.Name = "UserMainWindow";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DevIM";
+            this.Text = "DevIM（{0}）";
             this.Load += new System.EventHandler(this.UserMainWindow_Load);
             this.ResumeLayout(false);
 

@@ -40,7 +40,7 @@ namespace DevIM
             this.tbSendContent.Clear();
 
             this.rtbHistory.AppendText(string.Format(
-                "To:{0}--{1}\r\n{2}\r\n", 
+                "我 说：--{1}\r\n{2}\r\n", 
                 this._Friend._User.userfullName, 
                 content, 
                 DateTime.Now));
@@ -111,7 +111,7 @@ namespace DevIM
         {
             #region
             foreach (ChatMessage msg in _Friend._Messages)
-                this.rtbHistory.AppendText(string.Format("from:{0}--{1}\r\n{2}\r\n",
+                this.rtbHistory.AppendText(string.Format("{0} 说:--{1}\r\n{2}\r\n",
                     _Friend._User.userfullName,
                     msg._Content,
                     msg._RecvTime));

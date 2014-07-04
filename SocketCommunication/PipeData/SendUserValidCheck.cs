@@ -1,4 +1,5 @@
-﻿using DevIMDataLibrary;
+﻿using DevIMBusiness;
+using DevIMDataLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,27 @@ namespace SocketCommunication.PipeData
         public override bool Analysis()
         {
             List<string> analysisinfor = base.Split(2);
-            //在数据库中验证用户合法性？？？
+            TUserData userdata = (new TUserBusiness())
+                .GetUserCheck(analysisinfor[0], analysisinfor[1]);
+
+            bool issuccess = false;
+            string message = "";
+
+            System.Data.DataRow dr = null;
+            if (userdata.Tables[0].Rows.Count == 1)
+            {
+                dr = userdata.Tables[0].Rows[0];
+                issuccess = true;
+                message = string.Format("{0}-{1}", dr[TUserData.uid], dr[TUserData.userfullName]);
+            }
+            else
+                message = "帐号异常！";
+
             RecvUserCheckResult cmd = new RecvUserCheckResult();
             cmd._Result = new MsgResultModel()
             {
-                _Success = (analysisinfor[0] == "00000"),
-                _Message = (analysisinfor[0] == "00000") ? "通过！" : "验证失败！"
+                _Success = issuccess,
+                _Message = message
             };
             Console.WriteLine("用户名：{0}", analysisinfor[0]);
             base._SourceClient.Send(cmd.GetProtocolCommand());

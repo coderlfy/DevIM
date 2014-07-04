@@ -40,7 +40,7 @@ namespace DevIM
             //此处要异步开启登录请求
             CheckFormatValid();
 
-            MethodInvoker gd = new MethodInvoker(UserLogonRequest);
+            DLUserCheck gd = new DLUserCheck(UserLogonRequest);
             //异步请求中传入callback方法控制变化UI的最终结果？
             //其实上述方法应该返回bool类型，以确定返回登录是否成功。
             AsyncCallback callbak = new AsyncCallback(AfterUserCheck);
@@ -51,24 +51,31 @@ namespace DevIM
             #endregion
         }
 
+        private delegate bool DLUserCheck();
+
         private void AfterUserCheck(IAsyncResult result)
         {
             #region
-            MethodInvoker dl_do = (MethodInvoker)result.AsyncState;
-            dl_do.EndInvoke(result);
-
+            DLUserCheck dl_do = (DLUserCheck)result.AsyncState;
             
-            if(this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(() => { 
+            if(!this.InvokeRequired)
+                return;
+
+            if(dl_do.EndInvoke(result))
+                this.Invoke(new MethodInvoker(() => {
+                    _iconStatus._systemNotifyIcon.Text += "\r\nNO：" + _User.userid;
                     this.Hide();
                     UserMainWindow mainwindow = new UserMainWindow();
-                    mainwindow._IconStatus = _iconStatus;
+                    mainwindow._IconController = new icon.IconController();
+                    mainwindow._IconController.Bind(_iconStatus);
                     mainwindow.Show();
                     _iconStatus.BindToWindow(mainwindow);
                 }));
-            }
-            
+            else
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    ExtMessage.Show("帐号异常！");
+                }));
             #endregion
         }
         private bool CheckFormatValid()
@@ -90,32 +97,30 @@ namespace DevIM
             #endregion
         }
 
-        public void UserLogonRequest()
+        public bool UserLogonRequest()
         {
             #region
 
             TcpClientEx tcpclient = new TcpClientEx(
                 ServerInfor._Ip.ToString(), Convert.ToInt16(ServerInfor._Port));
-
             SendUserValidCheck senduservalidcheck = new
                 SendUserValidCheck() { _UserInfor = _User };
-
             byte[] command = senduservalidcheck.GetProtocolCommand();
-
             tcpclient.Connect();
-
             tcpclient.SendToEndDevice(command);
-
             tcpclient.Receive();
-
             RecvUserCheckResult usercheckresult = new RecvUserCheckResult();
-
             tcpclient.Dispatcher(usercheckresult);
-
-            _User.uid = (_User.userid == "00000") ? "1" : "2";
-
-            _iconStatus._systemNotifyIcon.Text += "\r\nNO：" + _User.userid;
             tcpclient.Close();
+
+            if (usercheckresult._Result._Success)
+            {
+                string message = usercheckresult._Result._Message;
+                int splitindex = message.IndexOf("-");
+                _User.uid = message.Substring(0, splitindex);
+                _User.userfullName = message.Substring(splitindex + 1, message.Length - splitindex - 1);
+            }
+            return usercheckresult._Result._Success;
             #endregion
         }
 
